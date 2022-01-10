@@ -2,23 +2,27 @@
 
 require_once("config/bdd.php");
 
-$sql = "SELECT * FROM reservations WHERE  BETWEEN debut AND fin"; // il manque le where ?
-$query = $bdd->prepare($sql);
-$query->execute();
-$horaire = $query->fetchAll();
-var_dump($horaire);
+if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
+    header("Location: profil.php");
+    exit;
+} else {
 
 
-if (isset($_SESSION["id"])) {
+
+
+
+
 
     $id_utilisateur = $_SESSION["id"];
 
     if (isset($_POST["envoyer"])) {
 
-        if(count($horaire) > 1){
-            echo "test";
-        }
 
+        $sql = "SELECT * FROM reservations WHERE reservations.id = 1 BETWEEN debut AND fin"; // il manque le where ?
+        $query = $bdd->prepare($sql);
+        $query->execute();
+        $horaire = $query->fetchAll();
+        //var_dump($horaire);
         if (isset($_POST["titre"]) && empty($_POST["titre"])) {
 
             $msgErr = "Vous n'avez pas de titre !";
@@ -28,9 +32,7 @@ if (isset($_SESSION["id"])) {
         $titreMax = 32;
         if ($titreLenght >= $titreMax) {
             $msgErr = "Votre Titre doit faire moins de 32 caractères !";
-        }
-
-        else if (isset($_POST["description"]) && empty($_POST["description"])) {
+        } else if (isset($_POST["description"]) && empty($_POST["description"])) {
             $msgErr = "Vous n'avez pas rempli de description";
         }
         $descriptionLenght = strlen($_POST["description"]);
@@ -38,16 +40,17 @@ if (isset($_SESSION["id"])) {
 
         if ($descriptionLenght >= $descriptionMax) {
             $msgErr = "Votre description doit avoir moins de 106 caractères !";
-        }
-        else if(isset($_POST["debut"]) && empty($_POST["debut"])){
+        } else if (isset($_POST["debut"]) && empty($_POST["debut"])) {
             $msgErr = "Vous avez besoin d'une date de début";
-        }
-        else if(isset($_POST["fin"]) && empty($_POST["fin"])) {
+        } else if (isset($_POST["fin"]) && empty($_POST["fin"])) {
             $msgErr = "Vous avez besoin d'une date de fin";
-        } 
-        if($_POST["debut"] !== $horaire && $_POST["fin"] !== $horaire){
-            $msgErr = "L'horaire que vous avez choisit n'est pas disponible";
         }
+        //     foreach($horaire as $hor){
+        //     if($_POST["debut"] == $hor["debut"] && $_POST["fin"] == $hor["fin"]){
+
+        //         $msgErr = "L'horaire que vous avez choisit n'est pas disponible";
+        //     } 
+        // }
         if (empty($msgErr)) {
 
             $titre = strip_tags(htmlspecialchars($_POST["titre"]));
@@ -61,75 +64,77 @@ if (isset($_SESSION["id"])) {
             unset($_POST);
         }
     }
-}
+
+
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
+    <!DOCTYPE html>
+    <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/reservationsalles.css">
-    <title>reservation salles</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/reservationsalles.css">
+        <title>reservation salles</title>
+    </head>
 
-<body>
-    <header>
-        <?php
-        if (isset($_SESSION['login'])) { // si quelqu'un est co 
-            include_once("include/headeronline.php"); //on remplace inscription par connection
-        } else {
-            include_once('include/header.php'); //sinon on laisse inscription
-        }
-        ?>
-    </header>
-    <main>
-        <form id="" action="" method="post">
-            <div style="color: red;">
-                <?php
-                if (isset($msgErr)) {
-                    echo $msgErr;
-                }
-                ?>
-            </div>
-            <table id="">
-                <div id="">
-                    <tr class="">
-                        <td colspan="2">
-                            <h2 id="">Reservation de votre salle</h2>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td class=""><label class="" for="titre">titre</label></td>
-                        <td class=""><input class="" type="text" name="titre" id="" placeholder="" required></td>
-                    </tr>
-                    <tr class="">
-                        <td class=""><label class="" for="description">description</label></td>
-                        <td class=""><input class="" type="text" name="description" id="" placeholder="" required></td>
-                    </tr>
-                    <tr class="">
-                        <td class=""><label class="" for="debut">date de début</label></td>
-                        <td class=""><input class="" type="datetime-local" name="debut" id="" placeholder="" required></td>
-                    </tr>
-                    <tr class="">
-                        <td class=""><label class="" for="fin">date de fin</label></td>
-                        <td class=""><input class="" type="datetime-local" name="fin" id="" placeholder="" required></td>
-                    </tr>
-                    <tr class="">
-                        <td class=""><input class="" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
-                    </tr>
+    <body>
+        <header>
+            <?php
+            if (isset($_SESSION['login'])) { // si quelqu'un est co 
+                include_once("include/headeronline.php"); //on remplace inscription par connection
+            } else {
+                include_once('include/header.php'); //sinon on laisse inscription
+            }
+            ?>
+        </header>
+        <main>
+            <form id="" action="" method="post">
+                <div style="color: red;">
+                    <?php
+                    if (isset($msgErr)) {
+                        echo $msgErr;
+                    }
+                    ?>
                 </div>
-            </table>
-        </form>
+                <table id="">
+                    <div id="">
+                        <tr class="">
+                            <td colspan="2">
+                                <h2 id="">Reservation de votre salle</h2>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class=""><label class="" for="titre">titre</label></td>
+                            <td class=""><input class="" type="text" name="titre" id="" placeholder="" required></td>
+                        </tr>
+                        <tr class="">
+                            <td class=""><label class="" for="description">description</label></td>
+                            <td class=""><input class="" type="text" name="description" id="" placeholder="" required></td>
+                        </tr>
+                        <tr class="">
+                            <td class=""><label class="" for="debut">date de début</label></td>
+                            <td class=""><input class="" type="datetime-local" name="debut" id="" placeholder="" required></td>
+                        </tr>
+                        <tr class="">
+                            <td class=""><label class="" for="fin">date de fin</label></td>
+                            <td class=""><input class="" type="datetime-local" name="fin" id="" placeholder="" required></td>
+                        </tr>
+                        <tr class="">
+                            <td class=""><input class="" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
+                        </tr>
+                    </div>
+                </table>
+            </form>
 
-    </main>
-    <footer>
+        </main>
+        <footer>
         <?php
         include_once('include/footer.php');
+    }
         ?>
-    </footer>
-</body>
+        </footer>
+    </body>
 
-</html>
+    </html>
