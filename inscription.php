@@ -25,7 +25,7 @@ if (isset($_POST['envoyer'])) {
         if ($loginexist !== 0)
             $erreur = "Login deja pris !";
         if ($erreur == "") {
-            $hashage = password_hash($password, PASSWORD_BCRYPT);
+            $hashage = password_hash($password, CRYPT_BLOWFISH);
             $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(login, password) VALUES(?, ?)");
             $insertmbr->execute(array($login, $hashage));
             $erreur = "Votre compte à bien été crée, vous pouvez maintenant vous connecter !";

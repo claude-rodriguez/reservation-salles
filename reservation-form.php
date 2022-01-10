@@ -7,12 +7,6 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
     exit;
 } else {
 
-
-
-
-
-
-
     $id_utilisateur = $_SESSION["id"];
 
     if (isset($_POST["envoyer"])) {
