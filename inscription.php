@@ -1,6 +1,10 @@
 <?php
 include_once("config/bdd.php");
 
+if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
+    header("Location: profil.php");
+}
+
 if (isset($_POST['envoyer'])) {
     $erreur = "";
     $login = htmlspecialchars($_POST['login']);
