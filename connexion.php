@@ -1,6 +1,6 @@
 
 <?php
-include_once("include/bdd.php");
+include_once("config/bdd.php");
 // var_dump ($_SESSION);
 if(isset($_POST['envoyer'])){
     $login = htmlspecialchars($_POST['login']); 
@@ -51,10 +51,10 @@ if(isset($_POST['envoyer'])){
             <div style="color: red;">
                     <?php
                     if (isset($erreur)){
-                    echo $erreur;
+                    echo @$erreur;
                     }
                     ?>
-                </div>   
+                </div>
                 <table id="crtable_ins">
                     <tr class="crtr_ins">
                         <td colspan="2">
@@ -63,7 +63,7 @@ if(isset($_POST['envoyer'])){
                     </tr>
                     <tr class="crtr_ins">  
                         <td class="crtd_ins"><label class="label_input_ins" for="login">Login</label></td><br>
-                        <td class="crtd_ins"><input class="label_input_ins" type="text" name="login" id="login" placeholder="<?php echo $_SESSION["login"]?>" required></td>
+                        <td class="crtd_ins"><input class="label_input_ins" type="text" name="login" id="login" placeholder="Votre login" required></td>
                     </tr>
                     <tr class="crtr_ins">
                         <td class="crtd_ins"><label class="label_input_ins" for="pass">Password</label></td><br>

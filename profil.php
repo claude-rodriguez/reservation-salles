@@ -1,5 +1,5 @@
 <?php
-include_once("include/bdd.php");
+include_once("config/bdd.php");
 // var_dump ($_SESSION);
 
 if(isset($_SESSION['id']) && $_SESSION['id'] > 0){
@@ -82,7 +82,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0){
                     ?>
                 </div>
                 <table id="crtable_ins">
-                   
+                
                         <tr class="crtr_ins">
                             <td colspan="2">
                                 <h2 id="cr_ins_h2">Changez Votre Profil</h2>
@@ -115,7 +115,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0){
         
         <footer>
             <?php
-             include_once('include/footer.php'); 
+            include_once('include/footer.php'); 
             ?>   
         </footer>
             

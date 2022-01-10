@@ -1,5 +1,5 @@
 <?php
-include_once("include/bdd.php");
+include_once("config/bdd.php");
 
 if (isset($_POST['envoyer'])){
     $erreur = "";
@@ -29,7 +29,7 @@ if (!empty($_POST['login']) AND !empty($_POST['password']) AND !empty($_POST['co
 
     }
 }
-   
+
 }?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -58,7 +58,7 @@ if (!empty($_POST['login']) AND !empty($_POST['password']) AND !empty($_POST['co
             <div style="color: red;">
                     <?php
                     if (isset($erreur)){
-                    echo $erreur;
+                    echo @$erreur;
                     }
                     ?>
                 </div>   
