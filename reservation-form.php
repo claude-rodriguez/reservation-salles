@@ -2,16 +2,28 @@
 
 require_once("config/bdd.php");
 
+$sql = "SELECT * FROM reservations WHERE  BETWEEN debut AND fin"; // il manque le where ?
+$query = $bdd->prepare($sql);
+$query->execute();
+$horaire = $query->fetchAll();
+var_dump($horaire);
+
+
 if (isset($_SESSION["id"])) {
 
     $id_utilisateur = $_SESSION["id"];
 
     if (isset($_POST["envoyer"])) {
 
+        if(count($horaire) > 1){
+            echo "test";
+        }
+
         if (isset($_POST["titre"]) && empty($_POST["titre"])) {
 
             $msgErr = "Vous n'avez pas de titre !";
         }
+
         $titreLenght = strlen($_POST["titre"]);
         $titreMax = 32;
         if ($titreLenght >= $titreMax) {
@@ -32,8 +44,10 @@ if (isset($_SESSION["id"])) {
         }
         else if(isset($_POST["fin"]) && empty($_POST["fin"])) {
             $msgErr = "Vous avez besoin d'une date de fin";
+        } 
+        if($_POST["debut"] !== $horaire && $_POST["fin"] !== $horaire){
+            $msgErr = "L'horaire que vous avez choisit n'est pas disponible";
         }
-
         if (empty($msgErr)) {
 
             $titre = strip_tags(htmlspecialchars($_POST["titre"]));
