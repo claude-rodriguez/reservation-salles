@@ -17,7 +17,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
         $query->execute();
         $horaire = $query->fetchAll();
         //var_dump($horaire);
-        if (isset($_POST["titre"]) && empty($_POST["titre"])) {
+        if (!isset($_POST["titre"]) && empty($_POST["titre"])) {
 
             $msgErr = "Vous n'avez pas de titre !";
         }
@@ -34,9 +34,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
 
         if ($descriptionLenght >= $descriptionMax) {
             $msgErr = "Votre description doit avoir moins de 106 caractères !";
-        } else if (isset($_POST["debut"]) && empty($_POST["debut"])) {
+        } else if (!isset($_POST["debut"]) && empty($_POST["debut"]) && !isset($_POST["debutH"]) && empty($_POST["debutH"])) {
             $msgErr = "Vous avez besoin d'une date de début";
-        } else if (isset($_POST["fin"]) && empty($_POST["fin"])) {
+        } else if (!isset($_POST["fin"]) && empty($_POST["fin"]) && !isset($_POST["finH"]) && empty($_POST["finH"])) {
             $msgErr = "Vous avez besoin d'une date de fin";
         }
         //     foreach($horaire as $hor){
@@ -45,17 +45,31 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
         //         $msgErr = "L'horaire que vous avez choisit n'est pas disponible";
         //     } 
         // }
+        $sql2 = "SELECT reservations.debut FROM reservations WHERE debut = ?";
+        $prep = $bdd->prepare($sql2);
+        $prep->execute(array($_POST["debut"] . " " . $_POST["debutH"]));
+        $debutSql = $prep->fetchAll();
+
+        if (count($debutSql) > 0){
+            $msgErr = "Votre horaire est déjà réservé";
+        }
+
         if (empty($msgErr)) {
 
-            $titre = strip_tags(htmlspecialchars($_POST["titre"]));
-            $description = strip_tags(htmlspecialchars($_POST["description"]));
-            $debut = strip_tags(htmlspecialchars($_POST["debut"]));
-            $fin = strip_tags(htmlspecialchars($_POST["fin"]));
+    $titre = strip_tags(htmlspecialchars($_POST["titre"]));
+    $description = strip_tags(htmlspecialchars($_POST["description"]));
+    $debut = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"]));
+    $fin = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"] + 1));
+
             $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
             $prepsql = $bdd->prepare($sql);
             $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
             $msgErr = "Reservation envoyée ";
             unset($_POST);
+            if(empty($_POST)){
+                header("location: reservation-form.php");
+                exit;
+            }
         }
     }
 
@@ -109,11 +123,34 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
                         </tr>
                         <tr class="">
                             <td class=""><label class="" for="debut">date de début</label></td>
-                            <td class=""><input class="" type="datetime-local" name="debut" id="" placeholder="" required></td>
+                            <td><input class="" type="date" name="debut"></td>
+                            <td class=""> <select name="debutH">
+                                    <!-- heure du début -->
+                                    <option value="">Choisir votre heure</option>
+                                    <?php for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
+                                    ?>
+                                        <option value=<?= $i ?>><?= $i ?>:00</option>
+                                    <?php }
+
+                                    ?>
+                            </td>
                         </tr>
+                        </select>
+
+
                         <tr class="">
                             <td class=""><label class="" for="fin">date de fin</label></td>
-                            <td class=""><input class="" type="datetime-local" name="fin" id="" placeholder="" required></td>
+
+                            <td><select name="fin">
+                                    <!-- heure de fin -->
+                                    <option value="">Choisir votre heure</option>
+                                    <?php for ($i = 9; $i <= 19; $i++) { // i = heure de 9h à 19h
+                                    ?>
+                                        <option value=<?= $i ?>><?= $i ?>:00</option>
+                                    <?php } ?>
+
+                                </select>
+                            </td>
                         </tr>
                         <tr class="">
                             <td class=""><input class="" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
