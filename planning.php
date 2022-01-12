@@ -8,7 +8,7 @@ $semaine = [
     "Vendredi",
 ];
 $sql = "SELECT reservations.id, titre, description, debut, fin, id_utilisateur , utilisateurs.login FROM `reservations` 
-INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE 1 ORDER BY debut DESC"; // inner join de la table reservations et utilisateur via les id des 2 tables
+INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id  "; // inner join de la table reservations et utilisateur via les id des 2 tables
 $prep = $bdd->prepare($sql);
 $prep->execute();
 $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
@@ -49,11 +49,12 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
         <h1>Reservations</h1>
 
         <table id="">
-            <?php foreach ($semaine as $jour) { // je parcour mon array de la semaine pour pouvoir afficher les jours
+            <?php foreach ($semaine as $jours) { // je parcour mon array de la semaine pour pouvoir afficher les jours
             ?>
-                <th><?= $jour ?></th>
+                <th><?= $jours ?></th>
             <?php
             }
+
 
             $heure = 8; // heure du début de journée initialisé à 8
             $finDeJournée = 19; // heure de fin de journée initialisé à 8
@@ -64,40 +65,42 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                     <td>
                         <?= $heure ?>heure
                     </td>
-
-
-
                     <?php
-                    foreach ($reservations as $reservation) {
-                        //debut de la reservation
-                        $heureJour = $heure . $jour; // des heures et des jours lié
-                        $dateHeureReserv = $reservation["debut"];
-                        $explosionReserv = explode(" ", $dateHeureReserv); //on sépare le jour et l'heure= on explose la string pour en faire un array la valeur de l'array est définis à chaque fois qu'il y a un espace grâce à = " "
-                        $jourReserv = $explosionReserv[0]; // on choisit les jours
-                        $explosionJour = explode("-", $jourReserv);
-
-                        $jourNum = date("N", mktime(0, 0, 0, $explosionJour[0], $explosionJour[1], $explosionJour[2])); //jour de la semaine
-
-                        $heureReserv = $explosionReserv[1];
-                        $explosionHeure = explode(":", $heureReserv); // on éxplose la string pour crée un array à chaque fois que : les sépares
-                        $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2]));
-
-                        //je lie le jour et l'heure de réservation
-                        $heureJourReserv = $heureNum . $jourNum;
+                    $jour = 1;
+                    while ($jour < 6) {
 
 
+                        foreach ($reservations as $reservation) {
+                            //debut de la reservation
+                            $heureJour = $heure . $jour; // des heures et des jours lié
+
+                            $dateHeureReserv = $reservation["debut"];
+                            $explosionReserv = explode(" ", $dateHeureReserv); //on sépare le jour et l'heure= on explose la string pour en faire un array la valeur de l'array est définis à chaque fois qu'il y a un espace grâce à = " "
+
+                            $jourReserv = $explosionReserv[0]; // on choisit les jours le premier côté de l'array
+                            $explosionJour = explode("-", $jourReserv); // on transforme encore une fois notre string à chaque fois qu'il y a un - on crée une nouvelle valeur à notre array
+                            $jourNum = date("N", mktime(0, 0, 0, $explosionJour[0], $explosionJour[1], $explosionJour[2])); //jour de la semaine
+
+                            $heureReserv = $explosionReserv[1]; // on choisit le 2ème côté de notre array pour prendre les heures 
+                            $explosionHeure = explode(":", $heureReserv); // on éxplose la string pour crée un array à chaque fois que : les sépares
+                            $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2]));
+
+                            //je lie le jour et l'heure de réservation
+                            $heureJourReserv = $heureNum . $jourNum;
 
 
 
-                        $titreResa = $reservation["titre"]; // titre de la réservation
-                        $idResa = $reservation["id"]; //id de la réservation
 
 
-                        // Si il y a une correspondance on rentre dans cette case 
-                        if ($heureJour == $heureJourReserv) {
+                            $titreResa = $reservation["titre"]; // titre de la réservation
+                            $idResa = $reservation["id"]; //id de la réservation
+
+
+                            // Si il y a une correspondance on rentre dans cette case 
+                            if ($heureJour == $heureJourReserv) {
                     ?>
 
-                            <td><a href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
+                                <td><a href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
 
 
 
@@ -112,14 +115,15 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
 
                 <?php
+                            }
                         }
+                        $jour++;
                     }
-
                     $heure++;
                 } ?>
 
 
-
+                </tr>
         </table>
 
     </main>
