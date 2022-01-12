@@ -25,12 +25,12 @@ if (isset($_POST['envoyer'])) {
         if ($loginexist !== 0)
             $erreur = "Login deja pris !";
         if ($erreur == "") {
-            $hashage = password_hash($password, CRYPT_BLOWFISH);
+            $hashage = password_hash($password, PASSWORD_DEFAULT);
+            //la constante PASSWORD_DEFAULT est concue pour changer dans le temps, au fur et à mesure que des algorithmes plus récents et plus forts sont ajoutés à PHP.
             $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(login, password) VALUES(?, ?)");
             $insertmbr->execute(array($login, $hashage));
             $erreur = "Votre compte à bien été crée, vous pouvez maintenant vous connecter !";
             header("Location: connexion.php");   //Redirige sur la page profil
-
         }
     }
 } ?>
@@ -39,6 +39,7 @@ if (isset($_POST['envoyer'])) {
 
 <head>
     <meta charset="UTf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="css/reservationsalles.css">
     <title>RESERVATION SALLES</title>
 </head>

@@ -1,14 +1,5 @@
-*{
-    padding: 0;
-    margin: 0 ;
-}
-html{
-    background-color: blanchedalmond;
 
-}
-body{
-    background-color: blanchedalmond;
-}
+
 #main_ins{
     display: flex;
     flex-direction: row;

@@ -1,7 +1,7 @@
 <?php
 
 require_once("config/bdd.php"); // connexion à la bdd
-
+$timeStamp = date("Y-m-d");
 if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisateur n'es pas co 
     header("Location: connexion.php"); // on l'envoie sûre connexion
     exit;
@@ -39,23 +39,23 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         $prep->execute(array($_POST["debut"] . " " . $_POST["debutH"]));
         $debutSql = $prep->fetchAll();
 
-        if (count($debutSql) > 0){
+        if (count($debutSql) > 0) {
             $msgErr = "Votre horaire est déjà réservé";
         }
 
         if (empty($msgErr)) {
 
-    $titre = strip_tags(htmlspecialchars($_POST["titre"]));
-    $description = strip_tags(htmlspecialchars($_POST["description"]));
-    $debut = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"]));
-    $fin = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"] + 1));
+            $titre = strip_tags(htmlspecialchars($_POST["titre"]));
+            $description = strip_tags(htmlspecialchars($_POST["description"]));
+            $debut = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"]));
+            $fin = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"] + 1));
 
             $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
             $prepsql = $bdd->prepare($sql);
             $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
             $msgErr = "Reservation envoyée ";
             unset($_POST);
-            if(empty($_POST)){
+            if (empty($_POST)) {
                 header("location: reservation-form.php");
                 exit;
             }
@@ -72,6 +72,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="css/reservationsalles.css">
         <title>reservation salles</title>
     </head>
@@ -112,8 +113,10 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                         </tr>
                         <tr class="">
                             <td class=""><label class="" for="debut">date de début <i>(1 h de réservation)</i></label></td>
-                            <td><input class="" type="date" name="debut"></td>
-                            <td class=""> <select name="debutH">
+                            <td><i>Samedi et Dimanche indisponible</i></td>
+                            <td><input class="" type="date" name="debut" max="2023-12-12" min="2022-01-12" required></td>
+                            <td class="">
+                                <select name="debutH">
                                     <!-- heure du début -->
                                     <option value="">Choisir votre heure</option>
                                     <?php for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
