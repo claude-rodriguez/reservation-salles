@@ -1,4 +1,12 @@
 <?php
+// if(isset($_GET["reservation"])){
+//     $dateParDefault="";
+
+//     if ($_GET['date_start'] == 1)
+//     {
+//         $dateParDefault = date('Y-m-d', strtotime('monday this week'));
+//     }
+// }
 
 require_once("config/bdd.php"); // connexion à la bdd
 $timeStamp = date("Y-m-d");

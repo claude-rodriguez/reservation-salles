@@ -11,7 +11,8 @@ $sql = "SELECT reservations.id, titre, description, debut, fin, id_utilisateur ,
 INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE 1 ORDER BY debut DESC"; // inner join de la table reservations et utilisateur via les id des 2 tables
 $prep = $bdd->prepare($sql);
 $prep->execute();
-$reservation = $prep->fetchAll(PDO::FETCH_ASSOC);
+$reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,6 +32,13 @@ $reservation = $prep->fetchAll(PDO::FETCH_ASSOC);
         } else {
             include_once('include/header.php'); //sinon on laisse inscription
         }
+        $semaine = [
+            "lundi",
+            "Mardi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi"
+        ];
         ?>
     </header>
 
@@ -41,27 +49,76 @@ $reservation = $prep->fetchAll(PDO::FETCH_ASSOC);
         <h1>Reservations</h1>
 
         <table id="">
-            <tr class="">
-                <?php foreach ($semaine as $jour) { ?>
-            <tr>&nbsp;</tr>
-            <tr><?= $jour ?></tr>
-            </tr>
-        <?php } ?>
+            <?php foreach ($semaine as $jour) { // je parcour mon array de la semaine pour pouvoir afficher les jours
+            ?>
+                <th><?= $jour ?></th>
+            <?php
+            }
 
-        <?php for ($i = 8; $i <= 19; $i++) {
+            $heure = 8; // heure du début de journée initialisé à 8
+            $finDeJournée = 19; // heure de fin de journée initialisé à 8
+            while ($heure <= $finDeJournée) { // tant l'heure de début n'est pas arrivé jusqu'à l'heure de fin
 
-        ?>
-            <tr class="">
-                <td><?= $i ?>H</td>
-            </tr>
-            <tr>
-                <td class="">Réveil</td>
-                <td class="normal">Réveil</td>
-                <td class="normal">Réveil</td>
-                <td class="normal">Réveil</td>
-                <td class="normal">Réveil</td>
-            </tr>
-        <?php } ?>
+            ?>
+                <tr class="">
+                    <td>
+                        <?= $heure ?>heure
+                    </td>
+
+
+
+                    <?php
+                    foreach ($reservations as $reservation) {
+                        //debut de la reservation
+                        $heureJour = $heure . $jour; // des heures et des jours lié
+                        $dateHeureReserv = $reservation["debut"];
+                        $explosionReserv = explode(" ", $dateHeureReserv); //on sépare le jour et l'heure= on explose la string pour en faire un array la valeur de l'array est définis à chaque fois qu'il y a un espace grâce à = " "
+                        $jourReserv = $explosionReserv[0]; // on choisit les jours
+                        $explosionJour = explode("-", $jourReserv);
+
+                        $jourNum = date("N", mktime(0, 0, 0, $explosionJour[0], $explosionJour[1], $explosionJour[2])); //jour de la semaine
+
+                        $heureReserv = $explosionReserv[1];
+                        $explosionHeure = explode(":", $heureReserv); // on éxplose la string pour crée un array à chaque fois que : les sépares
+                        $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2]));
+
+                        //je lie le jour et l'heure de réservation
+                        $heureJourReserv = $heureNum . $jourNum;
+
+
+
+
+
+                        $titreResa = $reservation["titre"]; // titre de la réservation
+                        $idResa = $reservation["id"]; //id de la réservation
+
+
+                        // Si il y a une correspondance on rentre dans cette case 
+                        if ($heureJour == $heureJourReserv) {
+                    ?>
+
+                            <td><a href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <?php
+                        }
+                    }
+
+                    $heure++;
+                } ?>
+
+
 
         </table>
 
