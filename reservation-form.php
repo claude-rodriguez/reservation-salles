@@ -1,35 +1,29 @@
 <?php
 
-require_once("config/bdd.php");
+require_once("config/bdd.php"); // connexion à la bdd
 
-if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
-    header("Location: profil.php");
+if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisateur n'es pas co 
+    header("Location: connexion.php"); // on l'envoie sûre connexion
     exit;
-} else {
+} else { //sinon
 
-    $id_utilisateur = $_SESSION["id"];
+    $id_utilisateur = $_SESSION["id"]; // on stock l'id de la session dans une variable
 
-    if (isset($_POST["envoyer"])) {
+    if (isset($_POST["envoyer"])) { // si on appuie sûre envoyer
 
-
-        $sql = "SELECT * FROM reservations WHERE reservations.id = 1 BETWEEN debut AND fin"; // il manque le where ?
-        $query = $bdd->prepare($sql);
-        $query->execute();
-        $horaire = $query->fetchAll();
-        //var_dump($horaire);
-        if (!isset($_POST["titre"]) && empty($_POST["titre"])) {
+        if (!isset($_POST["titre"]) && empty($_POST["titre"])) { // si le titre n'a pas de valeur
 
             $msgErr = "Vous n'avez pas de titre !";
         }
 
-        $titreLenght = strlen($_POST["titre"]);
-        $titreMax = 32;
+        $titreLenght = strlen($_POST["titre"]); //lenght du titre
+        $titreMax = 32; // max de char dans mon titre
         if ($titreLenght >= $titreMax) {
             $msgErr = "Votre Titre doit faire moins de 32 caractères !";
         } else if (isset($_POST["description"]) && empty($_POST["description"])) {
             $msgErr = "Vous n'avez pas rempli de description";
         }
-        $descriptionLenght = strlen($_POST["description"]);
+        $descriptionLenght = strlen($_POST["description"]); // idem pour desc
         $descriptionMax = 106;
 
         if ($descriptionLenght >= $descriptionMax) {
@@ -39,12 +33,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
         } else if (!isset($_POST["fin"]) && empty($_POST["fin"]) && !isset($_POST["finH"]) && empty($_POST["finH"])) {
             $msgErr = "Vous avez besoin d'une date de fin";
         }
-        //     foreach($horaire as $hor){
-        //     if($_POST["debut"] == $hor["debut"] && $_POST["fin"] == $hor["fin"]){
 
-        //         $msgErr = "L'horaire que vous avez choisit n'est pas disponible";
-        //     } 
-        // }
         $sql2 = "SELECT reservations.debut FROM reservations WHERE debut = ?";
         $prep = $bdd->prepare($sql2);
         $prep->execute(array($_POST["debut"] . " " . $_POST["debutH"]));
@@ -122,7 +111,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
                             <td class=""><input class="" type="text" name="description" id="" placeholder="" required></td>
                         </tr>
                         <tr class="">
-                            <td class=""><label class="" for="debut">date de début</label></td>
+                            <td class=""><label class="" for="debut">date de début <i>(1 h de réservation)</i></label></td>
                             <td><input class="" type="date" name="debut"></td>
                             <td class=""> <select name="debutH">
                                     <!-- heure du début -->
@@ -139,11 +128,11 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) {
 
 
                         <tr class="">
-                            <td class=""><label class="" for="fin">date de fin</label></td>
+                            <td class=""><label class="" for="fin">heure de fin <i>(1 h de réservation)</i></label></td>
 
                             <td><select name="fin">
                                     <!-- heure de fin -->
-                                    <option value="">Choisir votre heure</option>
+                                    <option value="">Choisir l'heure de fin</option>
                                     <?php for ($i = 9; $i <= 19; $i++) { // i = heure de 9h à 19h
                                     ?>
                                         <option value=<?= $i ?>><?= $i ?>:00</option>

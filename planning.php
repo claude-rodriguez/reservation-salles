@@ -1,5 +1,15 @@
 <?php
 require_once("config/bdd.php");
+$semaine = [
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+];
+$sql = "SELECT reservations.id, titre, description, debut, fin, id_utilisateur FROM `reservations` 
+INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE 1;" // inner join de la table reservations et utilisateur via les id des 2 tables
+
 ?>
 
 <head>
@@ -19,57 +29,36 @@ require_once("config/bdd.php");
 
 <body>
 
-    <main id="crindexmain">
-        <div>
-            <h1>Reservations</h1>
-            <table id="crtableplan">
-                <tr class="crplanningtr">
-                    <td></td>
-                    <td>Lundi</td>
-                    <td>Mardi</td>
-                    <td>Mercredi</td>
-                    <td>Jeudi</td>
-                    <td>Vendredi</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>8h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>9h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>10h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>11h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>12h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>13h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>14h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>15h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>16h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>17h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>18h</td>
-                </tr>
-                <tr class="crplanningtr">
-                    <td>19h</td>
-                </tr>
+    <main id="">
 
-            </table>
-        </div>
+        <h1>Reservations</h1>
+
+        <table id="">
+            <tr class="">
+                <?php foreach ($semaine as $jour) { ?>
+            <tr>&nbsp;</tr>
+            <tr><?= $jour ?></tr>
+        <?php } ?>
+        </tr>
+        <?php for($i = 8 ; $i <= 19; $i++){
+
+            ?>
+        <tr class="">
+            <td><?= $i ?>H</td>
+
+
+            <td class="">Réveil</td>
+            <td class="normal">Réveil</td>
+            <td class="normal">Réveil</td>
+            <td class="normal">Réveil</td>
+            <td class="normal">Réveil</td>
+<?php } ?>
+        </tr>
+
+        </table>
+
+
+
     </main>
     <footer>
 
