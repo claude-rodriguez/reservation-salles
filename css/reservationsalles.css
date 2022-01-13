@@ -1,3 +1,6 @@
+body {
+  overflow-x: hidden; 
+}
 #main_ins {
   display: flex;
   flex-direction: row;
