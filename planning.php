@@ -102,19 +102,19 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
                                 <td><a href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
 
-
-
-
-
-
-
-
-
-
-
-
-
+                            <?php
+                            } else {
+                                $heureJour = null;
+                            }
+                            if ($heureJour == null) {
+                            ?>
+                                <td>
+                                    <a href="reservation-form.php">
+                                        Disponible
+                                    </a>
+                                </td>
                 <?php
+
                             }
                         }
                         $jour++;
