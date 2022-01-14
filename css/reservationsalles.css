@@ -159,12 +159,12 @@ h3 {
   height: 100%;
 }
 td {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   height: 55px;
   border-style: solid;
   background-color: cornflowerblue;
-  font-size: 1.5em;
+  font-size: 1.5em; */
 }
 /* FOOTER */
 footer {

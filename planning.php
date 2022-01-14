@@ -51,7 +51,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
         <table id="">
             <?php foreach ($semaine as $jours) { // je parcour mon array de la semaine pour pouvoir afficher les jours
             ?>
-                <th><?= $jours ?></th>
+                <th><td><?= $jours ?></td></th>
             <?php
             }
 
