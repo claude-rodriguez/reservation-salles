@@ -49,9 +49,12 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
         <h1>Reservations</h1>
 
         <table id="">
+        <th>
+            heure
+    </th>
             <?php foreach ($semaine as $jours) { // je parcour mon array de la semaine pour pouvoir afficher les jours
             ?>
-                <th><td><?= $jours ?></td></th>
+                <th><?= $jours ?></th>
             <?php
             }
 
@@ -63,7 +66,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
             ?>
                 <tr class="">
                     <td>
-                        <?= $heure ?>heure
+                        <?= $heure ?> heure
                     </td>
                     <?php
                     $jour = 1;
