@@ -50,13 +50,12 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         if (count($debutSql) > 0) {
             $msgErr = "Votre horaire est déjà réservé";
         }
-
         if (empty($msgErr)) {
 
             $titre = strip_tags(htmlspecialchars($_POST["titre"]));
             $description = strip_tags(htmlspecialchars($_POST["description"]));
             $debut = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"]));
-            $fin = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"] + 1));
+            $fin = strip_tags(htmlspecialchars($_POST["debut"] . " " . Intval($_POST["debutH"] + 1)));
 
             $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
             $prepsql = $bdd->prepare($sql);

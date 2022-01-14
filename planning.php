@@ -58,7 +58,6 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
             <?php
             }
 
-
             $heure = 8; // heure du début de journée initialisé à 8
             $finDeJournée = 19; // heure de fin de journée initialisé à 8
             while ($heure <= $finDeJournée) { // tant l'heure de début n'est pas arrivé jusqu'à l'heure de fin
@@ -72,7 +71,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                     $jour = 1;
                     while ($jour < 6) {
 
-
+                        $resa = false;
                         foreach ($reservations as $reservation) {
                             //debut de la reservation
                             $heureJour = $heure . $jour; // des heures et des jours lié
@@ -92,33 +91,31 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                             $heureJourReserv = $heureNum . $jourNum;
 
 
-
-
-
                             $titreResa = $reservation["titre"]; // titre de la réservation
                             $idResa = $reservation["id"]; //id de la réservation
 
 
                             // Si il y a une correspondance on rentre dans cette case 
                             if ($heureJour == $heureJourReserv) {
-                    ?>
+                                $resa = true;
 
+                    ?>
                                 <td><a href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
 
                             <?php
-                            } else {
-                                $heureJour = null;
-                            }
-                            if ($heureJour == null) {
-                            ?>
-                                <td>
-                                    <a href="reservation-form.php">
-                                        Disponible
-                                    </a>
-                                </td>
-                <?php
+                            } 
+                           
+                        }
+                        if ($resa == false) {
+                            var_dump($heureJourReserv);
+                        ?>
+                            <td>
+                                <a href="reservation-form.php">
+                                    Disponible
+                                </a>
+                            </td>
+                        <?php
 
-                            }
                         }
                         $jour++;
                     }
