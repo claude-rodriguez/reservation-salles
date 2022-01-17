@@ -95,6 +95,7 @@ tr{
 
 table{
     display: flex;
+    flex-wrap:wrap;
     justify-content: center;
     border-collapse: collapse;
     margin: 20px 0;
