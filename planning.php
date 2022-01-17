@@ -13,6 +13,7 @@ $prep = $bdd->prepare($sql);
 $prep->execute();
 $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,13 +33,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
         } else {
             include_once('include/header.php'); //sinon on laisse inscription
         }
-        $semaine = [
-            "lundi",
-            "Mardi",
-            "Mercredi",
-            "Jeudi",
-            "Vendredi"
-        ];
+
         ?>
     </header>
 
@@ -50,7 +45,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
         <table id="">
             <th>
-                heure
+                Heure
             </th>
             <?php foreach ($semaine as $jours) { // je parcour mon array de la semaine pour pouvoir afficher les jours
             ?>
@@ -106,11 +101,14 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                             }
                         }
                         if ($resa == false) {
+                       
+
                             ?>
                             <td>
-                                <a href="reservation-form.php">
+                                
+                                <a href="reservation-form.php?jour=<?= $jour ?>&heure=<?= $heure ?>:00">
                                     Disponible
-                                </a>
+                                </a>    
                             </td>
                 <?php
 
