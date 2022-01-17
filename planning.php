@@ -41,7 +41,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
     <main id="">
 
-        <h1>Réservations</h1>
+        <h1 class="bg-dark text-light">Réservations</h1>
 <div class="right">
     <img src="../reservation-salles/images/salle2.jpg" width="30%" height="30%">
 
@@ -98,7 +98,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                                 $resa = true;
 
                     ?>
-                                <td><a class="btn btn-outline-light bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
+                                <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
 
                             <?php
                             }
@@ -109,7 +109,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                             ?>
                             <td>
 
-                                <a class="btn btn-outline-light bg-blue" href="reservation-form.php?jour=<?= $jour ?>&heure=<?= $heure ?>:00">
+                                <a class="btn btn-outline-primary" href="reservation-form.php?jour=<?= $jour ?>&heure=<?= $heure ?>:00">
                                     Disponible
                                 </a>
                             </td>
