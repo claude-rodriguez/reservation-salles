@@ -1,4 +1,4 @@
-main{
+main {
   background-color: blanchedalmond;
 }
 
@@ -67,54 +67,3 @@ footer {
   color: white;
   font-size: 1.5em;
 }
-
-/* planning */
-table a {
-  text-decoration: none;
-}
-
-
-td,th {
-  padding: 12px 15px;
-}
-
-table th {
-  background-color: rgb(235, 235, 235);
-  border-color: black;
-  border:black solid;
-}
-
-table td {
-  text-align: center;
-  border:black solid;
-}
-tr{
-  border-bottom: 1px solid #dddddd;
-  border:black ;
-}
-
-table{
-    display: flex;
-    justify-content: center;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 400px;
-    
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-
-
-}
-
-#img {
-background-image: url(../images/salle2.jpg);
-background-repeat: no-repeat;
-max-width: 30vh;
-}
-
-.right{
-  display: flex;
- justify-content: space-evenly;
-}
-
