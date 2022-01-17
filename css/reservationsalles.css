@@ -97,6 +97,7 @@ h1 {
 #h2_index {
   display: flex;
   justify-content: center;
+  padding-top: 10%;
 }
 #crindexmain {
   display: flex;
@@ -191,19 +192,7 @@ footer {
 
 /* planning */
 
-td {
-  text-align: center;
-}
-td,
-th {
-  border: 1px solid rgb(190, 190, 190);
-  padding: 10px 20px;
-}
 
-th {
-  background-color: rgb(235, 235, 235);
-}
-
-td {
-  text-align: center;
+.alpad{
+ /* padding-bottom:9.96%; */
 }

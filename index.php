@@ -36,17 +36,17 @@ require_once("config/bdd.php");
 
                 <h3>Salle Pandora (25 personnes)</h3>
                 <div id="div_index2">
-                    <a href="reservation-form.php">
+                    <a href="planning.php">
                         <img class="img_index" src="../reservation-salles/images/salle25.jfif" alt="">
                     </a>
                 </div>
-                <p>Cliquez sûre la photo pour réserver votre salle pendant <b>1 heure<b></p>
+                <p class="alpad">Cliquez sûre la photo pour voir les disponibilité<b>(1 heure de réservation max)<b></p>
 
             </article>
         </section>
         </div>
         <div id="background2"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
-    </main class="">
+    </main >
 
 
     <footer class="">
