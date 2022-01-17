@@ -1,6 +1,9 @@
 body {
   overflow-x: hidden; 
 }
+a{
+  text-decoration: none;
+}
 #main_ins {
   display: flex;
   flex-direction: row;
