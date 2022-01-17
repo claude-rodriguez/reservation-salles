@@ -109,14 +109,8 @@ background-repeat: no-repeat;
 max-width: 30vh;
 }
 
+.right{
+  display: flex;
+ justify-content: space-evenly;
+}
 
-.row{
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}
-.droite {
-  display: flex;
-  flex-direction:row;
-  justify-content: right;
-}
