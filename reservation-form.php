@@ -1,4 +1,13 @@
 <?php
+require_once("config/bdd.php"); // connexion à la bdd
+
+$semaine = [
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+];
 // if(isset($_GET["reservation"])){
 //     $dateParDefault="";
 
@@ -8,7 +17,32 @@
 //     }
 // }
 
-require_once("config/bdd.php"); // connexion à la bdd
+
+$mardi = date('d/m/Y', strtotime("+1day this week"));
+$mercredi = date('d/m/Y', strtotime("+2day this week"));
+$jeudi = date('d/m/Y', strtotime("+3day this week"));
+$vendredi = date('d/m/Y', strtotime("+4day this week"));
+
+$jour = $_GET["jour"];
+
+if($jour == 1){
+    $jour = "Lundi";
+    $date = date('d/m/Y', strtotime("this week"));
+} else if ($jour == 2){
+    $jour = "Mardi";
+    $date = date('d/m/Y', strtotime("+1 day this week"));
+} else if ($jour == 3 ){
+    $jour = "Mercredi";
+    $date = date('d/m/Y', strtotime("+2 day this week"));
+} else if ($jour == 4){
+    $jour = "Jeudi";
+    $date = date('d/m/Y', strtotime("+3 day this week"));
+} else if ($jour == 5){
+    $jour = "Vendredi";
+    $date = date('d/m/Y', strtotime("+4 day this week"));
+}
+
+
 $timeStamp = date("Y-m-d");
 if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisateur n'es pas co 
     header("Location: connexion.php"); // on l'envoie sûre connexion
@@ -121,15 +155,28 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                         <tr class="">
                             <td class=""><label class="" for="debut">date de début <i>(1 h de réservation)</i></label></td>
                             <td><i>Samedi et Dimanche indisponible</i></td>
-                            <td><input class="" type="date" name="debut" max="2023-12-12" min="2022-01-12" required></td>
+                            <td> <select name="select" id="select">
+                                    <?php foreach ($semaine as $key => $value) { ?>
+                                        <option <?= $_GET['jour'] == $jour ? "selected" : NULL ?> value=""></option>
+                                    <?php
+                                    } ?>
+                                </select></td>
                             <td class="">
                                 <select name="debutH">
                                     <!-- heure du début -->
                                     <option value="">Choisir votre heure</option>
-                                    <?php for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
+
+                                    <?php
+                                    if (empty($_GET["heure"])) {
+                                        for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
                                     ?>
-                                        <option value=<?= $i ?>><?= $i ?>:00</option>
-                                    <?php }
+                                            <option value=<?= $i ?>><?= $i ?>:00</option>
+                                        <?php }
+                                    } else {
+                                        ?>
+                                        <option selected="$_GET['heure']"><?= $_GET["heure"]; ?> </option>
+                                    <?php
+                                    }
 
                                     ?>
                             </td>
