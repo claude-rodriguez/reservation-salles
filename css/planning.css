@@ -57,7 +57,7 @@ footer {
   text-decoration: none;
   list-style-type: none;
 }
-
+/* header et footer */
 .cra {
   text-decoration: none;
   color: white;
@@ -103,3 +103,20 @@ table{
 
 }
 
+#img {
+background-image: url(../images/salle2.jpg);
+background-repeat: no-repeat;
+max-width: 30vh;
+}
+
+
+.row{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.droite {
+  display: flex;
+  flex-direction:row;
+  justify-content: right;
+}
