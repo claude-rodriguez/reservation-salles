@@ -65,38 +65,41 @@ footer {
 }
 
 /* planning */
-a {
+table a {
   text-decoration: none;
 }
 
-td {
-  text-align: center;
-}
+
 td,th {
   padding: 12px 15px;
 }
 
-th {
+table th {
   background-color: rgb(235, 235, 235);
   border-color: black;
+  border:black solid;
 }
 
-td {
+table td {
   text-align: center;
+  border:black solid;
 }
 tr{
   border-bottom: 1px solid #dddddd;
+  border:black ;
 }
 
 table{
     display: flex;
     justify-content: center;
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: 20px 0;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
+    
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
 
 }
 
