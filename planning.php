@@ -72,7 +72,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                             $resa = false;
                             foreach ($reservations as $reservation) {
                                 //debut de la reservation
-                                $heureJour = $heure . $jour; // des heures et des jours lié
+                                $heureJour = $heure . $jour ; // des heures et des jours lié
 
                                 $dateHeureReserv = $reservation["debut"];
                                 $explosionReserv = explode(" ", $dateHeureReserv); //on sépare le jour et l'heure= on explose la string pour en faire un array la valeur de l'array est définis à chaque fois qu'il y a un espace grâce à = " "
@@ -86,7 +86,8 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                                 $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2]));
 
                                 //je lie le jour et l'heure de réservation
-                                $heureJourReserv = $heureNum . $jourNum;
+                                $heureJourReserv = $heureNum . $jourNum  -2;
+
 
 
                                 $titreResa = $reservation["titre"]; // titre de la réservation
