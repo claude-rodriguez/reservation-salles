@@ -124,12 +124,11 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                 $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
                 $msgErr = "Reservation envoyée ";
 
-                // if (empty($_POST)) {
-                //     header("location: reservation-form.php");
-                //     exit;
-                // }
+
+                header("location: reservation-form.php");
+                exit;
             } else {
-                
+
                 $titre = strip_tags(htmlspecialchars($_POST["titre"]));
                 $description = strip_tags(htmlspecialchars($_POST["description"]));
                 $debut = strip_tags(htmlspecialchars($dateOffGet . " " . $_POST["debutH"]));
@@ -280,7 +279,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         <footer>
         <?php
         include_once('include/footer.php');
-    
+    }
         ?>
         </footer>
     </body>
