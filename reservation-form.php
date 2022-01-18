@@ -125,9 +125,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                 $msgErr = "Reservation envoyée ";
 
                 // if (empty($_POST)) {
-                //     header("location: reservation-form.php");
-                //     exit;
-                // }
+                    header("location: reservation-form.php");
+                    exit;
+                }
             } else {
                 echo "ofget";
                 $titre = strip_tags(htmlspecialchars($_POST["titre"]));
@@ -280,7 +280,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         <footer>
         <?php
         include_once('include/footer.php');
-    }
+    
         ?>
         </footer>
     </body>
