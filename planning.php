@@ -42,12 +42,11 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
     <main id="">
 
         <h1 class="bg-dark text-light">Réservations</h1>
-<div class="right">
-    <img src="../reservation-salles/images/salle2.jpg" width="30%" height="30%">
+
 
         <table class="">
             <th class="bg-dark text-light">
-                Heures
+                Heures 
             </th>
             <?php foreach ($semaine as $jours) { // je parcour mon array de la semaine pour pouvoir afficher les jours
             ?>
@@ -124,7 +123,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
                 </tr>
         </table>
-        </div>
+        
 
     </main>
     <footer>

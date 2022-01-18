@@ -18,29 +18,55 @@ $semaine = [
 // }
 
 
-$mardi = date('d/m/Y', strtotime("+1day this week"));
-$mercredi = date('d/m/Y', strtotime("+2day this week"));
-$jeudi = date('d/m/Y', strtotime("+3day this week"));
-$vendredi = date('d/m/Y', strtotime("+4day this week"));
+$mardi = date('Y/m/d', strtotime("+1day this week"));
+$mercredi = date('Y/m/d', strtotime("+2day this week"));
+$jeudi = date('Y/m/d', strtotime("+3day this week"));
+$vendredi = date('Y/m/d', strtotime("+4day this week"));
 
-$jour = $_GET["jour"];
 
-if($jour == 1){
-    $jour = "Lundi";
-    $date = date('d/m/Y', strtotime("this week"));
-} else if ($jour == 2){
-    $jour = "Mardi";
-    $date = date('d/m/Y', strtotime("+1 day this week"));
-} else if ($jour == 3 ){
-    $jour = "Mercredi";
-    $date = date('d/m/Y', strtotime("+2 day this week"));
-} else if ($jour == 4){
-    $jour = "Jeudi";
-    $date = date('d/m/Y', strtotime("+3 day this week"));
-} else if ($jour == 5){
-    $jour = "Vendredi";
-    $date = date('d/m/Y', strtotime("+4 day this week"));
+
+if (isset($_GET["jour"])) {
+    $jour = $_GET["jour"];
+    if ($jour == 1) {
+        $jour = "Lundi";
+        $date = date('Y/m/d', strtotime("this week"));
+    } else if ($jour == 2) {
+        $jour = "Mardi";
+        $date = date('Y/m/d', strtotime("+1 day this week"));
+    } else if ($jour == 3) {
+        $jour = "Mercredi";
+        $date = date('Y/m/d', strtotime("+2 day this week"));
+    } else if ($jour == 4) {
+        $jour = "Jeudi";
+        $date = date('Y/m/d', strtotime("+3 day this week"));
+    } else if ($jour == 5) {
+        $jour = "Vendredi";
+        $date = date('Y/m/d', strtotime("+4 day this week"));
+    }
+    $semaine = [
+        "Lundi",
+        "Mardi",
+        "Mercredi",
+        "Jeudi",
+        "Vendredi",
+    ];
+} else {
+    if (isset($_POST["envoyer"])) {
+
+        if ($_POST["debut"] == "Lundi") {
+            $dateOffGet = date('Y/m/d', strtotime("this week"));
+        } else if ($_POST["debut"] == "Mardi") {
+            $dateOffGet = date('Y/m/d', strtotime("+1 day this week"));
+        } else if ($_POST["debut"] == "Mercredi") {
+            $dateOffGet = date('Y/m/d', strtotime("+2 day this week"));
+        } else if ($_POST["debut"] == "Jeudi") {
+            $dateOffGet = date('Y/m/d', strtotime("+3 day this week"));
+        } else if ($_POST["debut"] == "Vendredi") {
+            $dateOffGet = date('Y/m/d', strtotime("+4 day this week"));
+        }
+    }
 }
+
 
 
 $timeStamp = date("Y-m-d");
@@ -59,9 +85,9 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         }
 
         $titreLenght = strlen($_POST["titre"]); //lenght du titre
-        $titreMax = 32; // max de char dans mon titre
+        $titreMax = 22; // max de char dans mon titre
         if ($titreLenght >= $titreMax) {
-            $msgErr = "Votre Titre doit faire moins de 32 caractères !";
+            $msgErr = "Votre Titre doit faire moins de 22 caractères !";
         } else if (isset($_POST["description"]) && empty($_POST["description"])) {
             $msgErr = "Vous n'avez pas rempli de description";
         }
@@ -85,18 +111,35 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             $msgErr = "Votre horaire est déjà réservé";
         }
         if (empty($msgErr)) {
+            if (isset($_GET["jour"])) {
 
-            $titre = strip_tags(htmlspecialchars($_POST["titre"]));
-            $description = strip_tags(htmlspecialchars($_POST["description"]));
-            $debut = strip_tags(htmlspecialchars($_POST["debut"] . " " . $_POST["debutH"]));
-            $fin = strip_tags(htmlspecialchars($_POST["debut"] . " " . Intval($_POST["debutH"] + 1)));
+                echo "Gleget";
+                $titre = strip_tags(htmlspecialchars($_POST["titre"]));
+                $description = strip_tags(htmlspecialchars($_POST["description"]));
+                $debut = strip_tags(htmlspecialchars($date . " " . $_POST["debutH"]));
+                $fin = strip_tags(htmlspecialchars($date . " " . Intval($_POST["debutH"] + 1)));
 
-            $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
-            $prepsql = $bdd->prepare($sql);
-            $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
-            $msgErr = "Reservation envoyée ";
-            unset($_POST);
-            if (empty($_POST)) {
+                $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
+                $prepsql = $bdd->prepare($sql);
+                $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
+                $msgErr = "Reservation envoyée ";
+
+                // if (empty($_POST)) {
+                //     header("location: reservation-form.php");
+                //     exit;
+                // }
+            } else {
+                echo "ofget";
+                $titre = strip_tags(htmlspecialchars($_POST["titre"]));
+                $description = strip_tags(htmlspecialchars($_POST["description"]));
+                $debut = strip_tags(htmlspecialchars($dateOffGet . " " . $_POST["debutH"]));
+                $fin = strip_tags(htmlspecialchars($dateOffGet . " " . Intval($_POST["debutH"] + 1)));
+
+                $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
+                $prepsql = $bdd->prepare($sql);
+                $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
+                $msgErr = "Reservation envoyée ";
+
                 header("location: reservation-form.php");
                 exit;
             }
@@ -155,31 +198,52 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                         <tr class="">
                             <td class=""><label class="" for="debut">date de début <i>(1 h de réservation)</i></label></td>
                             <td><i>Samedi et Dimanche indisponible</i></td>
-                            <td> <select name="select" id="select">
-                                    <?php foreach ($semaine as $key => $value) { ?>
-                                        <option <?= $_GET['jour'] == $jour ? "selected" : NULL ?> value=""></option>
-                                    <?php
-                                    } ?>
-                                </select></td>
-                            <td class="">
-                                <select name="debutH">
-                                    <!-- heure du début -->
-                                    <option value="">Choisir votre heure</option>
+                            <?php if (isset($_GET["jour"])) { ?>
+                                <td> <select name="debut" id="debut">
+                                        <?php
 
-                                    <?php
-                                    if (empty($_GET["heure"])) {
-                                        for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
-                                    ?>
-                                            <option value=<?= $i ?>><?= $i ?>:00</option>
-                                        <?php }
-                                    } else {
+                                        foreach ($semaine as $key => $value) {
+
                                         ?>
-                                        <option selected="$_GET['heure']"><?= $_GET["heure"]; ?> </option>
-                                    <?php
-                                    }
 
-                                    ?>
-                            </td>
+                                            <option value=<?= "$date" ?> <?php if ($value == $jour) echo "selected" ?>> <?= $value; ?> </option>
+                                        <?php
+                                        } ?>
+                                    </select></td>
+
+                            <?php } else {
+                            ?> <td> <select name="debut" id="debut">
+                                        <?php
+                                        foreach ($semaine as $key => $value) {
+                                        ?>
+
+                                            <option> <?= $value; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                <?php  } ?>
+
+                                <td class="">
+                                    <select name="debutH">
+                                        <!-- heure du début -->
+                                        <option value="">Choisir votre heure</option>
+
+                                        <?php
+
+                                        if (empty($_GET["heure"])) {
+                                            for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
+                                        ?>
+                                                <option value=<?= $i ?>><?= $i ?>:00</option>
+                                            <?php }
+                                        } else {
+                                            ?>
+                                            <option selected="$_GET['heure']"><?= $_GET["heure"]; ?> </option>
+                                        <?php
+                                        }
+
+                                        ?>
+                                </td>
                         </tr>
                         </select>
 
@@ -190,10 +254,17 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                             <td><select name="fin">
                                     <!-- heure de fin -->
                                     <option value="">Choisir l'heure de fin</option>
-                                    <?php for ($i = 9; $i <= 19; $i++) { // i = heure de 9h à 19h
+                                    <?php if (empty($_GET["heure"])) {
+                                        for ($i = 9; $i <= 19; $i++) { // i = heure de 9h à 19h
                                     ?>
-                                        <option value=<?= $i ?>><?= $i ?>:00</option>
-                                    <?php } ?>
+                                            <option value=<?= $i ?>><?= $i ?>:00</option>
+                                        <?php }
+                                    } else {
+                                        $getHeure = $_GET["heure"] + 1
+                                        ?>
+                                        <option selected="$getHeure"><?= $getHeure ?>:00</option>
+                                    <?php
+                                    } ?>
 
                                 </select>
                             </td>
