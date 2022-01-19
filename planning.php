@@ -7,6 +7,7 @@ $semaine = [
     "Jeudi",
     "Vendredi",
 ];
+
 $sql = "SELECT reservations.id, titre, description, debut, fin, id_utilisateur , utilisateurs.login FROM `reservations` 
 INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id  "; // inner join de la table reservations et utilisateur via les id des 2 tables
 $prep = $bdd->prepare($sql);
@@ -42,27 +43,36 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
     <main id="">
 
         <h1 class="bg-dark text-light">Réservations</h1>
-<div class="right">
-    <img src="../reservation-salles/images/salle2.jpg" width="30%" height="30%">
 
-        <table class="">
-            <th class="bg-dark text-light">
-                Heures
-            </th>
-            <?php foreach ($semaine as $jours) { // je parcour mon array de la semaine pour pouvoir afficher les jours
-            ?>
-                <th class="bg-dark text-light"><?= $jours ?></th>
+        <div class="right">
+
+            <img src="../reservation-salles/images/salle2.jpg" width="30%" height="30%">
+
+            <table class="">
+
+                <th class="bg-dark text-light">
+                    Heures
+                </th>
+
+                <?php foreach ($semaine as $jours) { // je parcour mon array de la semaine pour pouvoir afficher les jours
+                ?>
+
+                    <th class="bg-dark text-light"><?= $jours ?>
+                </th>
 
                 <?php
                 }
 
                 $heure = 8; // heure du début de journée initialisé à 8
                 $finDeJournée = 19; // heure de fin de journée initialisé à 8
+
                 while ($heure <= $finDeJournée) { // tant l'heure de début n'est pas arrivé jusqu'à l'heure de fin
 
                 ?>
                     <tr class="">
+
                         <td class="bg-dark text-light">
+
                             <?= $heure ?>:00
                         </td>
                         <?php
@@ -70,9 +80,10 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                         while ($jour < 6) {
 
                             $resa = false;
+
                             foreach ($reservations as $reservation) {
                                 //debut de la reservation
-                                $heureJour = $heure . $jour ; // des heures et des jours lié
+                                $heureJour = $heure . $jour; // des heures et des jours lié
 
                                 $dateHeureReserv = $reservation["debut"];
                                 $explosionReserv = explode(" ", $dateHeureReserv); //on sépare le jour et l'heure= on explose la string pour en faire un array la valeur de l'array est définis à chaque fois qu'il y a un espace grâce à = " "
@@ -83,17 +94,17 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
                                 $heureReserv = $explosionReserv[1]; // on choisit le 2ème côté de notre array pour prendre les heures 
                                 $explosionHeure = explode(":", $heureReserv); // on éxplose la string pour crée un array à chaque fois que : les sépares
-                                $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2], 0,0,0));
+                                $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2], 0, 0, 0));
 
                                 //je lie le jour et l'heure de réservation
-                                $heureJourReserv = $heureNum . $jourNum   ;
+                                $heureJourReserv = $heureNum . $jourNum;
 
 
 
                                 $titreResa = $reservation["titre"]; // titre de la réservation
                                 $idResa = $reservation["id"]; //id de la réservation
 
-                                
+
                                 // Si il y a une correspondance on rentre dans cette case 
                                 if ($heureJour == $heureJourReserv && $jour == $jourNum) {
                                     $resa = true;
@@ -123,8 +134,8 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                     } ?>
 
 
-                </tr>
-        </table>
+                    </tr>
+            </table>
         </div>
 
     </main>
