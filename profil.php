@@ -7,7 +7,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
     $requtilisateur->execute(array($_SESSION['id']));
     $infoutilisateur = $requtilisateur->fetch();
 } else {
-    header('Location: index.php');
+    header('Location: connexion.php');
 }
 
 if (isset($_POST['newlogin']) && !empty($_POST['newlogin']) && $_POST['newlogin'] != $infoutilisateur['login']) {

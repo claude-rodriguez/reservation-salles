@@ -2,7 +2,8 @@
 include_once("config/bdd.php");
 // var_dump ($_SESSION);
 if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
-    header("Location: profil.php");
+    header("Location: planning.php");
+    exit('Vous êtes déjà connecté');
 }
 if (isset($_POST['envoyer'])) {
     $login = htmlspecialchars($_POST['login']);

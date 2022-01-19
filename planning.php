@@ -58,7 +58,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="right">
 
-            <img src="../reservation-salles/images/salle2.jpg" width="30%" height="30%">
+            <img class="Alpad"src="../reservation-salles/images/salle25.jfif" width="30%" height="30%">
 
             <table class="">
 
