@@ -79,29 +79,29 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
                                 $jourReserv = $explosionReserv[0]; // on choisit les jours le premier côté de l'array
                                 $explosionJour = explode("-", $jourReserv); // on transforme encore une fois notre string à chaque fois qu'il y a un - on crée une nouvelle valeur à notre array
-                                $jourNum = date("N", mktime(0, 0, 0, $explosionJour[0], $explosionJour[1], $explosionJour[2])); //jour de la semaine
+                                $jourNum = date("N", mktime(0, 0, 0, $explosionJour[1], $explosionJour[2], $explosionJour[0])); //jour de la semaine
 
                                 $heureReserv = $explosionReserv[1]; // on choisit le 2ème côté de notre array pour prendre les heures 
                                 $explosionHeure = explode(":", $heureReserv); // on éxplose la string pour crée un array à chaque fois que : les sépares
-                                $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2]));
+                                $heureNum = date("G", mktime($explosionHeure[0], $explosionHeure[1], $explosionHeure[2], 0,0,0));
 
                                 //je lie le jour et l'heure de réservation
-                                $heureJourReserv = $heureNum . $jourNum  -2;
+                                $heureJourReserv = $heureNum . $jourNum   ;
 
 
 
                                 $titreResa = $reservation["titre"]; // titre de la réservation
                                 $idResa = $reservation["id"]; //id de la réservation
 
-
+                                
                                 // Si il y a une correspondance on rentre dans cette case 
-                                if ($heureJour == $heureJourReserv) {
+                                if ($heureJour == $heureJourReserv && $jour == $jourNum) {
                                     $resa = true;
 
                         ?>
                                     <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
 
-                                <?php
+                                <?php break;
                                 }
                             }
                             if ($resa == false) {
