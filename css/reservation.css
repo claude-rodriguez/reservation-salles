@@ -1,0 +1,78 @@
+/* HEADER */
+#form_header {
+  color: red;
+}
+#input_header {
+  font-size: 1.2em;
+}
+#p_header {
+  font-size: 1.5em;
+  color: orange;
+}
+
+#crheaderdiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: cornflowerblue;
+}
+#crheadernav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+/* FOOTER */
+footer {
+  /* margin-top: 32px; */
+  /* position: absolute; */
+  /* bottom: 0; */
+  width: 100vw;
+}
+#crfootdiv1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: cornflowerblue;
+}
+.crfootli {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  list-style-type: none;
+}
+#crfootdiv1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: cornflowerblue;
+}
+
+.crfootli {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  list-style-type: none;
+}
+/* header et footer */
+.cra {
+  text-decoration: none;
+  color: white;
+  font-size: 1.5em;
+}
+/* main */
+
+.b-g{
+    background-color: blanchedalmond;
+}
+
+main h1 {
+  display: flex;
+  justify-content: center;
+}
+
+main p {
+  font-size: 3vh;
+  display: flex;
+  justify-content: center;
+}

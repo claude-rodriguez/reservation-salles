@@ -170,8 +170,8 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             }
             ?>
         </header>
-        <main>
-            <form id="" action="" method="post">
+        <main >
+            <form class="" id="" action="" method="post">
                 <div style="color: red;">
                     <?php
                     if (isset($msgErr)) {
