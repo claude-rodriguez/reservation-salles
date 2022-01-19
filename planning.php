@@ -8,6 +8,13 @@ $semaine = [
     "Vendredi",
 ];
 
+if (isset($_GET["page"]) && !empty($_GET["page"])) {
+
+    $currentPage = (int) htmlspecialchars(strip_tags($_GET["page"]));
+} else {
+    $currentPage = 1;
+}
+
 $sql = "SELECT reservations.id, titre, description, debut, fin, id_utilisateur , utilisateurs.login FROM `reservations` 
 INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id  "; // inner join de la table reservations et utilisateur via les id des 2 tables
 $prep = $bdd->prepare($sql);
@@ -37,7 +44,6 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
         ?>
     </header>
-
 
 
     <main id="">
@@ -137,6 +143,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
             </table>
         </div>
+<a href="planning.php?page"></a>
 
     </main>
     <footer>

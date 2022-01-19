@@ -42,7 +42,7 @@ if (isset($_GET["jour"])) {
     } else if ($jour == 5) {
         $jour = "Vendredi";
         $date = date('Y/m/d', strtotime("+4 day this week"));
-    }
+    } 
     $semaine = [
         "Lundi",
         "Mardi",
