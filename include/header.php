@@ -22,7 +22,7 @@
                         <a class="cra" href="index.php">Accueil</a>
                         <a class="cra" href="planning.php">Planning</a>
                         <a class="cra" href="reservation-form.php">Réservation</a>
-                        <a class="cra" href="profil.php">Profil</a>
+                        <p class="cra" href="profil.php">Bonjour</p>
                         <a class="cra" href="connexion.php">Connexion</a>
                         <a class="cra" href="inscription.php">Inscription</a>
                     </td>

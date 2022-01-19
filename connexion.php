@@ -18,7 +18,7 @@ if (isset($_POST['envoyer'])) {
             if (password_verify($password, $sqlPassword)) { // Permet de vérifier si les 2 mots de passes sont identiques
                 $_SESSION['id'] = $result[0]['id'];  //créé une session avec les éléments de la table utilisateurs
                 $_SESSION['login'] = $result[0]['login'];
-                header("Location: profil.php");   //Redirige sur la page profil
+                header("Location: planning.php");   //Redirige sur la page profil
             } else {
                 $erreur = "Mauvais login !";
             }
@@ -76,7 +76,7 @@ if (isset($_POST['envoyer'])) {
                     <td class="crtd_ins"><input class="label_input_ins" type="password" id="pass" name="password" minlength="2" placeholder="Your Password" required></td>
                 </tr>
                 <tr class="crtr_ins">
-                    <td class="crtd_ins"><input class="label_input_ins" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
+                    <td class="crtd_ins"><input class="btn btn-primary" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
                 </tr>
             </table>
         </form>

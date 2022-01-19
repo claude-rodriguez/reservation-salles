@@ -23,7 +23,7 @@
                         <a class="cra" href="planning.php">Planning</a>
                         <a class="cra" href="reservation-form.php">Réservation</a>
                         <a class="cra" href="profil.php">Profil</a>
-                        <a class="cra" href="connexion.php">Connexion</a>
+                        
                         <p id="p_header"><?php echo "Bonjour " . $_SESSION["login"] ?></p>
                     <td class="nav-item">
                         <form id="form_header" class="ml-5 my-2 d-flex align-items-center" action="" method="get">

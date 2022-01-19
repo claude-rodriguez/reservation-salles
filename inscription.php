@@ -89,7 +89,7 @@ if (isset($_POST['envoyer'])) {
                         <td class="crtd_ins"><input class="label_input_ins" type="password" id="conf_pass" name="confirm_password" minlength="2" placeholder="Confirm Your Password" required></td>
                     </tr>
                     <tr class="crtr_ins">
-                        <td class="crtd_ins"><input class="label_input_ins" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
+                        <td class="crtd_ins"><input class="btn btn-primary" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
                     </tr>
                 </div>
             </table>
