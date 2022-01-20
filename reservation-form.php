@@ -261,7 +261,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             </form>
             </div>
         </main>
-        <footer>
+        <footer class="">
         <?php
         include_once('include/footer.php');
     }

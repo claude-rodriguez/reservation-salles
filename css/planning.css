@@ -1,5 +1,6 @@
 main{
   background-color: blanchedalmond;
+  
 }
 
 /* HEADER */
@@ -101,9 +102,9 @@ table{
     margin: 20px 0;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
+    max-width: calc(100%/ 1 - 25vh);
     
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    
 
 
 }
