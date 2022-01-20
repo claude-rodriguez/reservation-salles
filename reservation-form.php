@@ -110,14 +110,14 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             $msgErr = "Votre horaire est déjà réservé";
         }
         if (!isset($_GET["jour"])) {
-        if(date("Y/m/d")>$dateOffGet) {
-            $msgErr = "Le jour est déjà passé";
+            if (date("Y/m/d") > $dateOffGet) {
+                $msgErr = "Le jour est déjà passé";
+            }
+        } else {
+            if (date("Y/m/d") > $date) {
+                $msgErr = "Le jour est déjà passé";
+            }
         }
-    }else{
-        if(date("Y/m/d")>$date) {
-            $msgErr = "Le jour est déjà passé";
-        }
-    }
 
 
         if (empty($msgErr)) {
@@ -132,9 +132,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                 $prepsql = $bdd->prepare($sql);
                 $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
                 $msgErr = "Reservation envoyée ";
-
-
-                header("location: reservation-form.php");
+                header("location: planning.php");
                 exit;
             } else {
 
@@ -147,8 +145,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                 $prepsql = $bdd->prepare($sql);
                 $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
                 $msgErr = "Reservation envoyée ";
-
-                header("location: reservation-form.php");
+                header("location: planning.php");
                 exit;
             }
         }
@@ -202,7 +199,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                         <select name="debut" class="col-8">
 
 
-                                <option class="col-8" value=<?= "$date" ?>> <?= $jour; ?> </option>
+                            <option class="col-8" value=<?= "$date" ?>> <?= $jour; ?> </option>
 
 
 
@@ -223,7 +220,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                             <select class="col-8" name="debutH">
                                 <!-- heure du début -->
 
-                                <option class="col-8" value="">Choisir votre heure</option> 
+                                <option class="col-8" value="">Choisir votre heure</option>
 
                                 <?php
 
