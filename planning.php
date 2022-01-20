@@ -21,6 +21,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
 
 
+
 $sql = "SELECT reservations.id, titre, description, debut, fin, id_utilisateur , utilisateurs.login FROM `reservations` 
 INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id  "; // inner join de la table reservations et utilisateur via les id des 2 tables
 $prep = $bdd->prepare($sql);
@@ -114,6 +115,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
                                 $titreResa = $reservation["titre"]; // titre de la réservation
                                 $idResa = $reservation["id"]; //id de la réservation
+                                $loginResa = $reservation['login']; // login de la reservation
 
 
                                 // Si il y a une correspondance on rentre dans cette case 
@@ -121,7 +123,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                                     $resa = true;
 
                         ?>
-                                    <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?></a></td>
+                                    <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?><br> Par : <?= $loginResa ?></a></td>
 
                                 <?php break;
                                 }
