@@ -134,23 +134,52 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                                             </a>
                                         </td>
 
-                                <?php
+                                    <?php
                                     }
                                     break;
                                 }
                             }
                             if ($resa == false) {
 
+                                if ($jour == 1) {
+                                    
+                                    $date = date('Y/m/d', strtotime("this week"));
+                                } else if ($jour == 2) {
+                                    
+                                    $date = date('Y/m/d', strtotime("+1 day this week"));
+                                } else if ($jour == 3) {
+                                    
+                                    $date = date('Y/m/d', strtotime("+2 day this week"));
+                                } else if ($jour == 4) {
+                                    
+                                    $date = date('Y/m/d', strtotime("+3 day this week"));
+                                } else if ($jour == 5) {
+                                    
+                                    $date = date('Y/m/d', strtotime("+4 day this week"));
+                                }
+
+                                if (date("Y/m/d") > $date) {
+
+                                    ?>
+                                    <td>
+
+                                        <a class="btn btn-outline-danger bg-dark" href="">
+                                            Indisponible
+                                        </a>
+                                    </td>
+                                <?php
+
+                                } else {
 
                                 ?>
-                                <td>
+                                    <td>
 
-                                    <a class="btn btn-outline-primary" href="reservation-form.php?jour=<?= $jour ?>&heure=<?= $heure ?>:00">
-                                        Disponible
-                                    </a>
-                                </td>
+                                        <a class="btn btn-outline-primary" href="reservation-form.php?jour=<?= $jour ?>&heure=<?= $heure ?>:00">
+                                            Disponible
+                                        </a>
+                                    </td>
                     <?php
-
+                                }
                             }
                             $jour++;
                         }
