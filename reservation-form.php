@@ -18,10 +18,10 @@ $semaine = [
 // }
 
 
-$mardi = date('Y/m/d', strtotime("+1day this week"));
-$mercredi = date('Y/m/d', strtotime("+2day this week"));
-$jeudi = date('Y/m/d', strtotime("+3day this week"));
-$vendredi = date('Y/m/d', strtotime("+4day this week"));
+// $mardi = date('Y/m/d', strtotime("+1day this week"));
+// $mercredi = date('Y/m/d', strtotime("+2day this week"));
+// $jeudi = date('Y/m/d', strtotime("+3day this week"));
+// $vendredi = date('Y/m/d', strtotime("+4day this week"));
 
 
 
@@ -42,7 +42,7 @@ if (isset($_GET["jour"])) {
     } else if ($jour == 5) {
         $jour = "Vendredi";
         $date = date('Y/m/d', strtotime("+4 day this week"));
-    } 
+    }
     $semaine = [
         "Lundi",
         "Mardi",
@@ -170,7 +170,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             }
             ?>
         </header>
-        <main >
+        <main class="d-flex justify-content-center">
             <form class="" id="" action="" method="post">
                 <div style="color: red;">
                     <?php
@@ -179,102 +179,87 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                     }
                     ?>
                 </div>
-                <table id="">
-                    <div id="">
-                        <tr class="">
-                            <td colspan="2">
-                                <h2 id="">Reservation de votre salle</h2>
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class=""><label class="" for="titre">titre</label></td>
-                            <td class=""><input class="" type="text" name="titre" id="" placeholder="" required></td>
-                        </tr>
-                        <tr class="">
-                            <td class=""><label class="" for="description">description</label></td>
-                            <td class=""><input class="" type="text" name="description" id="" placeholder="" required></td>
-                        </tr>
-                        <tr class="">
-                            <td class=""><label class="" for="debut">date de début <i>(1 h de réservation)</i></label></td>
-                            <td><i>Samedi et Dimanche indisponible</i></td>
-                            <?php if (isset($_GET["jour"])) { ?>
-                                <td> <select name="debut" id="debut">
-                                        <?php
-
-                                        foreach ($semaine as $key => $value) {
-
-                                        ?>
-
-                                            <option value=<?= "$date" ?> <?php if ($value == $jour) echo "selected" ?>> <?= $value; ?> </option>
-                                        <?php
-                                        } ?>
-                                    </select></td>
-
-                            <?php } else {
-                            ?> <td> <select name="debut" id="debut">
-                                        <?php
-                                        foreach ($semaine as $key => $value) {
-                                        ?>
-
-                                            <option> <?= $value; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                <?php  } ?>
-
-                                <td class="">
-                                    <select name="debutH">
-                                        <!-- heure du début -->
-                                        <option value="">Choisir votre heure</option>
-
-                                        <?php
-
-                                        if (empty($_GET["heure"])) {
-                                            for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
-                                        ?>
-                                                <option value=<?= $i ?>><?= $i ?>:00</option>
-                                            <?php }
-                                        } else {
-                                            ?>
-                                            <option selected="$_GET['heure']"><?= $_GET["heure"]; ?> </option>
-                                        <?php
-                                        }
-
-                                        ?>
-                                </td>
-                        </tr>
-                        </select>
 
 
-                        <tr class="">
-                            <td class=""><label class="" for="fin">heure de fin <i>(1 h de réservation)</i></label></td>
+                <h2 id="">Reservation de votre salle</h2>
+                <div class="d-flex flex-column  m-2">
+                    <label class="d-inline-flex p-2 bd-highlight" for="titre">titre</label>
+                    <input class="col-8" type="text" name="titre" id="" placeholder="" required>
 
-                            <td><select name="fin">
-                                    <!-- heure de fin -->
-                                    <option value="">Choisir l'heure de fin</option>
-                                    <?php if (empty($_GET["heure"])) {
-                                        for ($i = 9; $i <= 19; $i++) { // i = heure de 9h à 19h
+                    <label class="d-inline-flex p-2 bd-highlight" for="description">description</label>
+                    <input class="col-8 " type="text" name="description" id="" placeholder="" required>
+                    <label class="d-inline-flex p-2 bd-highlight" for="debut">Votre jour de réservation</label>
+                    <?php if (isset($_GET["jour"])) { ?>
+                        <select name="debut" class="col-8">
+                            <?php
+
+                            foreach ($semaine as $key => $value) {
+
+                            ?>
+
+                                <option class="col-8" value=<?= "$date" ?> <?php if ($value == $jour) echo "selected" ?>> <?= $value; ?> </option>
+                            <?php
+                            } ?>
+
+
+                        <?php } else {
+                        ?> <select class="col-8" name="debut">
+                                <?php
+                                foreach ($semaine as $key => $value) {
+                                ?>
+
+                                    <option class="col-8"> <?= $value; ?></option>
+                                <?php
+                                }
+                                ?>
+
+                            <?php  } ?>
+                            </select>
+                            <label class="d-inline-flex p-2 bd-highlight" for="fin">heure du début <i>&nbsp; (1 h de réservation)</i></label>
+                            <select class="col-8" name="debutH">
+                                <!-- heure du début -->
+
+                                <option class="col-8" value="">Choisir votre heure</option>
+
+                                <?php
+
+                                if (empty($_GET["heure"])) {
+                                    for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
+                                ?>
+                                        <option class="col-8" value=<?= $i ?>><?= $i ?>:00</option>
+                                    <?php }
+                                } else {
                                     ?>
-                                            <option value=<?= $i ?>><?= $i ?>:00</option>
-                                        <?php }
-                                    } else {
-                                        $getHeure = $_GET["heure"] + 1
-                                        ?>
-                                        <option selected="$getHeure"><?= $getHeure ?>:00</option>
-                                    <?php
-                                    } ?>
+                                    <option class="col-8" selected="$_GET['heure']"><?= $_GET["heure"]; ?> </option>
+                                <?php
+                                }
 
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class=""><input class="" type="submit" name="envoyer" value="Envoyer le formulaire"></td>
-                        </tr>
-                    </div>
-                </table>
+                                ?>
+
+                            </select>
+
+                            <label class="d-inline-flex p-2 bd-highlight" for="fin">heure de fin <i>&nbsp; (1 h de réservation)</i></label>
+
+                            <select class="col-8" name="fin">
+                                <!-- heure de fin -->
+                                <option value="col-8">Choisir l'heure de fin</option>
+                                <?php if (empty($_GET["heure"])) {
+                                    for ($i = 9; $i <= 19; $i++) { // i = heure de 9h à 19h
+                                ?>
+                                        <option class="col-8" value=<?= $i ?>><?= $i ?>:00</option>
+                                    <?php }
+                                } else {
+                                    $getHeure = $_GET["heure"] + 1
+                                    ?>
+                                    <option class="col-8" selected="$getHeure"><?= $getHeure ?>:00</option>
+                                <?php
+                                } ?>
+
+                            </select>
+                            <input class="col-8 btn btn-primary mt-2" type="submit" name="envoyer" value="Envoyer le formulaire">
+
             </form>
-
+            </div>
         </main>
         <footer>
         <?php
