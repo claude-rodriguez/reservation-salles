@@ -115,9 +115,35 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
                                 // Si il y a une correspondance on rentre dans cette case 
                                 if ($heureJour == $heureJourReserv && $jour == $jourNum) {
+                                    
                                     $resa = true;
                                     $titreLenght = strlen($titreResa);
                                     $titreCharMax = 14;
+
+                                    if ($jourNum == 1) {
+                                    
+                                        $date = date('Y/m/d', strtotime("this week"));
+                                    } else if ($jourNum == 2) {
+                                        
+                                        $date = date('Y/m/d', strtotime("+1 day this week"));
+                                    } else if ($jourNum == 3) {
+                                        
+                                        $date = date('Y/m/d', strtotime("+2 day this week"));
+                                    } else if ($jourNum == 4) {
+                                        
+                                        $date = date('Y/m/d', strtotime("+3 day this week"));
+                                    } else if ($jourNum == 5) {
+                                        
+                                        $date = date('Y/m/d', strtotime("+4 day this week"));
+                                    }
+    
+                                    if (date("Y/m/d") > $date) {
+
+                                    $sqll = "DELETE FROM `reservations` WHERE id = ?";
+                                    $prep = $bdd->prepare($sqll);
+                                    $delReserv = $prep->execute(array($idResa));
+                                    }
+    
 
                                     if ($titreLenght >= $titreCharMax) {
 
