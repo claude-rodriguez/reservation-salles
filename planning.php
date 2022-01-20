@@ -126,7 +126,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                                     $titreCharMax = 14;
 
                                     if ($titreLenght >= $titreCharMax) {
-                                        debug($titreCharMax);
+                                        
                         ?>
                                         <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= substr($titreResa,0, $titreCharMax) . ".."; ?><br> Par : <?= $loginResa ?></a></td>
 
