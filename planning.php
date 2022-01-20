@@ -17,12 +17,6 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
     $currentPage = 1;
 }
 
-
-
-
-
-
-
 $sql = "SELECT reservations.id, titre, description, debut, fin, id_utilisateur , utilisateurs.login FROM `reservations` 
 INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id  "; // inner join de la table reservations et utilisateur via les id des 2 tables
 $prep = $bdd->prepare($sql);
@@ -126,15 +120,19 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                                     $titreCharMax = 14;
 
                                     if ($titreLenght >= $titreCharMax) {
-                                        
+
                         ?>
-                                        <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= substr($titreResa,0, $titreCharMax) . ".."; ?><br> Par : <?= $loginResa ?></a></td>
+                                        <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= substr($titreResa, 0, $titreCharMax) . ".."; ?><br> Par : <?= $loginResa ?></a></td>
 
                                     <?php
                                     } else {
 
                                     ?>
-                                        <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?><br> Par : <?= $loginResa ?></a></td>
+                                        <td>
+                                            <a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>">
+                                                <?= $titreResa; ?><br> Par : <?= $loginResa ?>
+                                            </a>
+                                        </td>
 
                                 <?php
                                     }
@@ -157,7 +155,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                             $jour++;
                         }
                         $heure++;
-                    } 
+                    }
                     ?>
 
 

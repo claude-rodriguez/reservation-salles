@@ -88,16 +88,20 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         if ($titreLenght >= $titreMax) {
             $msgErr = "Votre Titre doit faire moins de 22 caractères !";
         } else if (isset($_POST["description"]) && empty($_POST["description"])) {
+
             $msgErr = "Vous n'avez pas rempli de description";
         }
+
         $descriptionLenght = strlen($_POST["description"]); // idem pour desc
         $descriptionMax = 106;
 
         if ($descriptionLenght >= $descriptionMax) {
             $msgErr = "Votre description doit avoir moins de 106 caractères !";
         } else if (!isset($_POST["debut"]) && empty($_POST["debut"]) && !isset($_POST["debutH"]) && empty($_POST["debutH"])) {
+
             $msgErr = "Vous avez besoin d'une date de début";
         } else if (!isset($_POST["fin"]) && empty($_POST["fin"]) && !isset($_POST["finH"]) && empty($_POST["finH"])) {
+
             $msgErr = "Vous avez besoin d'une date de fin";
         }
 
@@ -107,20 +111,27 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         $debutSql = $prep->fetchAll();
 
         if (count($debutSql) > 0) {
+
             $msgErr = "Votre horaire est déjà réservé";
         }
+
         if (!isset($_GET["jour"])) {
+
             if (date("Y/m/d") > $dateOffGet) {
+
                 $msgErr = "Le jour est déjà passé";
             }
         } else {
+
             if (date("Y/m/d") > $date) {
+
                 $msgErr = "Le jour est déjà passé";
             }
         }
 
 
         if (empty($msgErr)) {
+
             if (isset($_GET["jour"])) {
 
                 $titre = strip_tags(htmlspecialchars($_POST["titre"]));
@@ -174,7 +185,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             } else {
                 include_once('include/header.php'); //sinon on laisse inscription
             }
-            ?>
+            ?>_
         </header>
         <main class="d-flex justify-content-center">
             <form class="" id="" action="" method="post">
@@ -194,28 +205,33 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
 
                     <label class="d-inline-flex p-2 bd-highlight" for="description">description</label>
                     <input class="col-8 " type="text" name="description" id="" placeholder="" required>
+
                     <label class="d-inline-flex p-2 bd-highlight" for="debut">Votre jour de réservation</label>
                     <?php if (isset($_GET["jour"])) { ?>
-                        <select name="debut" class="col-8">
 
+                        <select name="debut" class="col-8">
 
                             <option class="col-8" value=<?= "$date" ?>> <?= $jour; ?> </option>
 
-
-
                         <?php } else {
-                        ?> <select class="col-8" name="debut">
+                        ?>
+                            <select class="col-8" name="debut">
+
                                 <?php
                                 foreach ($semaine as $key => $value) {
                                 ?>
 
-                                    <option class="col-8"> <?= $value; ?></option>
+                                    <option class="col-8">
+                                        <?= $value; ?>
+                                    </option>
                                 <?php
                                 }
                                 ?>
 
                             <?php  } ?>
                             </select>
+
+                            
                             <label class="d-inline-flex p-2 bd-highlight" for="fin">heure du début <i>&nbsp; (1 h de réservation)</i></label>
                             <select class="col-8" name="debutH">
                                 <!-- heure du début -->

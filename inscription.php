@@ -38,9 +38,9 @@ if (isset($_POST['envoyer'])) {
 <html lang="fr">
 
 <head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@200&display=swap" rel="stylesheet">
     <meta charset="UTf-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="css/reservationsalles.css">
@@ -60,6 +60,7 @@ if (isset($_POST['envoyer'])) {
     </header>
 
     <main id="main_ins">
+
         <div id="background2"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
         <form id="form_ins" action="" method="post">
             <div style="color: red;">
@@ -69,6 +70,8 @@ if (isset($_POST['envoyer'])) {
                 }
                 ?>
             </div>
+
+
             <table id="crtable_ins">
                 <div id="crdiv_ins">
                     <tr class="crtr_ins">
@@ -94,7 +97,11 @@ if (isset($_POST['envoyer'])) {
                 </div>
             </table>
         </form>
-        <div id="background2"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
+
+
+        <div id="background2">
+            <img src="../reservation-salles/images/salle-removebg-preview.png" alt="">
+        </div>
     </main>
 
     <footer>
