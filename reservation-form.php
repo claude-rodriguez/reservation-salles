@@ -24,7 +24,6 @@ $semaine = [
 // $vendredi = date('Y/m/d', strtotime("+4day this week"));
 
 
-
 if (isset($_GET["jour"])) {
     $jour = $_GET["jour"];
     if ($jour == 1) {
@@ -110,10 +109,20 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         if (count($debutSql) > 0) {
             $msgErr = "Votre horaire est déjà réservé";
         }
+        if (!isset($_GET["jour"])) {
+        if(date("Y/m/d")>$dateOffGet) {
+            $msgErr = "Le jour est déjà passé";
+        }
+    }else{
+        if(date("Y/m/d")>$date) {
+            $msgErr = "Le jour est déjà passé";
+        }
+    }
+
+
         if (empty($msgErr)) {
             if (isset($_GET["jour"])) {
 
-                echo "Gleget";
                 $titre = strip_tags(htmlspecialchars($_POST["titre"]));
                 $description = strip_tags(htmlspecialchars($_POST["description"]));
                 $debut = strip_tags(htmlspecialchars($date . " " . $_POST["debutH"]));
@@ -191,15 +200,10 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                     <label class="d-inline-flex p-2 bd-highlight" for="debut">Votre jour de réservation</label>
                     <?php if (isset($_GET["jour"])) { ?>
                         <select name="debut" class="col-8">
-                            <?php
 
-                            foreach ($semaine as $key => $value) {
 
-                            ?>
+                                <option class="col-8" value=<?= "$date" ?>> <?= $jour; ?> </option>
 
-                                <option class="col-8" value=<?= "$date" ?> <?php if ($value == $jour) echo "selected" ?>> <?= $value; ?> </option>
-                            <?php
-                            } ?>
 
 
                         <?php } else {
@@ -219,13 +223,14 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                             <select class="col-8" name="debutH">
                                 <!-- heure du début -->
 
-                                <option class="col-8" value="">Choisir votre heure</option>
+                                <option class="col-8" value="">Choisir votre heure</option> 
 
                                 <?php
 
                                 if (empty($_GET["heure"])) {
                                     for ($i = 8; $i <= 18; $i++) { // i = heure de 8h à 18h
                                 ?>
+
                                         <option class="col-8" value=<?= $i ?>><?= $i ?>:00</option>
                                     <?php }
                                 } else {
@@ -246,6 +251,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                                 <?php if (empty($_GET["heure"])) {
                                     for ($i = 9; $i <= 19; $i++) { // i = heure de 9h à 19h
                                 ?>
+
                                         <option class="col-8" value=<?= $i ?>><?= $i ?>:00</option>
                                     <?php }
                                 } else {
