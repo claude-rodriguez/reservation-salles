@@ -1,3 +1,7 @@
+body{
+  overflow-x: hidden;
+}
+
 main{
   background-color: blanchedalmond;
   
