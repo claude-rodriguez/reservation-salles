@@ -27,7 +27,7 @@ require_once("config/bdd.php");
         }
         ?>
     </header>
-    <main >
+    <main>
         <?php
 
         if (isset($_GET["reservation"])) {
@@ -58,40 +58,42 @@ INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE r
             $jourNum = date("N", mktime(0, 0, 0, $explosionJour[1], $explosionJour[2], $explosionJour[0])); //jour de la semaine
 
         ?>
+            <section>
+                <article>
+                    <h1> <u><?= $titre; ?></u></h1>
 
+                    <p>
+                        La description de la réservation:
+                    </p>
+                    <p>
+                        <?= $description; ?>
+                    </p>
+                    <hr>
+                    <p>
+                        Jour de réservation :
+                    </p>
+                    <p>
+                        Le <?= $explosionJour[2] ?>/<?= $explosionJour[1] ?>/<?= $explosionJour[0] ?>
+                    </p>
+                    <p>Heure de début :
+                    </p>
+                    <p>
+                        à <?= $explosionHeureD[0]; ?>:00 Heures
+                    </p>
+                    <p>Votre heure de fin :
+                    </p>
+                    <p>
+                        à <?= $explosionHeureF[0]; ?>:00 Heures
+                    </p>
 
-            <h1> <u><?= $titre; ?></u></h1>
-
-            <p>
-                La description de la réservation:
-            </p>
-            <p>
-                <?= $description; ?>
-            </p>
-            <hr class="">
-            <p>
-                Jour de réservation :
-            </p>
-            <p>
-                Le <?= $explosionJour[2] ?>/<?= $explosionJour[1] ?>/<?= $explosionJour[0] ?>
-            </p>
-            <p>Heure de début :
-            </p>
-            <p>
-                à <?= $explosionHeureD[0]; ?>:00 Heures
-            </p>
-            <p>Votre heure de fin :
-            </p>
-            <p>
-                à <?= $explosionHeureF[0]; ?>:00 Heures
-            </p>
-
-            <p>
-                <i>
-                    Réservé par
-                    <?= $login; ?>
-                </i>
-            </p>
+                    <p>
+                        <i>
+                            Réservé par
+                            <?= $login; ?>
+                        </i>
+                    </p>
+                </article>
+            </section>
         <?php
         }
         ?>

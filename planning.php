@@ -1,5 +1,6 @@
 <?php
 require_once("config/bdd.php");
+require_once("include/fonction.php");
 $semaine = [
     "Lundi",
     "Mardi",
@@ -59,7 +60,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="right">
 
-            <img class="Alpad"src="../reservation-salles/images/salle25.jfif" width="30%" height="30%">
+            <img class="Alpad" src="../reservation-salles/images/salle25.jfif" width="30%" height="30%">
 
             <table class="">
 
@@ -71,7 +72,7 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                 ?>
 
                     <th class="bg-dark text-light"><?= $jours ?>
-                </th>
+                    </th>
 
                 <?php
                 }
@@ -121,11 +122,23 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                                 // Si il y a une correspondance on rentre dans cette case 
                                 if ($heureJour == $heureJourReserv && $jour == $jourNum) {
                                     $resa = true;
+                                    $titreLenght = strlen($titreResa);
+                                    $titreCharMax = 14;
 
+                                    if ($titreLenght >= $titreCharMax) {
+                                        debug($titreCharMax);
                         ?>
-                                    <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?><br> Par : <?= $loginResa ?></a></td>
+                                        <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= substr($titreResa,0, $titreCharMax) . ".."; ?><br> Par : <?= $loginResa ?></a></td>
 
-                                <?php break;
+                                    <?php
+                                    } else {
+
+                                    ?>
+                                        <td><a class="btn btn-outline-danger bg-dark" href="reservation.php?reservation=<?= $idResa;  ?>"><?= $titreResa; ?><br> Par : <?= $loginResa ?></a></td>
+
+                                <?php
+                                    }
+                                    break;
                                 }
                             }
                             if ($resa == false) {
@@ -144,13 +157,13 @@ $reservations = $prep->fetchAll(PDO::FETCH_ASSOC);
                             $jour++;
                         }
                         $heure++;
-                    } ?>
+                    } 
+                    ?>
 
 
                     </tr>
             </table>
         </div>
-
 
 
     </main>
