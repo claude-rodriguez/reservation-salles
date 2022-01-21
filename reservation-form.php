@@ -245,7 +245,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                             <?php  } ?>
                             </select>
 
-é
+
                             <label class="d-inline-flex p-2 bd-highlight" for="fin">heure du début <i>&nbsp; (1 h de réservation)</i></label>
                             <select class="col-8" name="debutH">
                                 <!-- heure du début -->
