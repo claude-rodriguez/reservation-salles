@@ -100,6 +100,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         } else if (!isset($_POST["debut"]) && empty($_POST["debut"]) && !isset($_POST["debutH"]) && empty($_POST["debutH"])) {
 
             $msgErr = "Vous avez besoin d'une date de début";
+
         } else if (!isset($_POST["fin"]) && empty($_POST["fin"]) && !isset($_POST["finH"]) && empty($_POST["finH"])) {
 
             $msgErr = "Vous avez besoin d'une date de fin";
@@ -120,22 +121,30 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
 
             if (date("Y/m/d") > $dateOffGet) {
         
-                $dateOffGet = date('Y/m/d', strtotime("+7 this week"));
-                $msg = "Réservé pour la semaine suivante";
-            }
-        } else {
-        
-            if (date("Y/m/d") > $date) {
-        
-                $date = date('Y/m/d', strtotime("+7 day this week"));
-                $msg = "Réservé pour la semaine suivante";
+                $dateOffGet = date('Y/m/d', strtotime("+7 day this week"));
+                $msgErr = "Réservé pour la semaine suivante";
+
+                $titre = strip_tags(htmlspecialchars($_POST["titre"]));
+                $description = strip_tags(htmlspecialchars($_POST["description"]));
+                $debut = strip_tags(htmlspecialchars($dateOffGet . " " . $_POST["debutH"]));
+                $fin = strip_tags(htmlspecialchars($dateOffGet . " " . Intval($_POST["debutH"] + 1)));
+
+                $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
+                $prepsql = $bdd->prepare($sql);
+                $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
+                $msgErr = "Vous avez réservé(e) pour la semaine prochaine";
+
             }
         }
+        
+
+        
 
 
         if (empty($msgErr)) {
 
             if (isset($_GET["jour"])) {
+
 
                 $titre = strip_tags(htmlspecialchars($_POST["titre"]));
                 $description = strip_tags(htmlspecialchars($_POST["description"]));
@@ -188,7 +197,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             } else {
                 include_once('include/header.php'); //sinon on laisse inscription
             }
-            ?>_
+            ?>
         </header>
         <main class="d-flex justify-content-center">
             <form class="" id="" action="" method="post">
@@ -236,7 +245,7 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                             <?php  } ?>
                             </select>
 
-
+é
                             <label class="d-inline-flex p-2 bd-highlight" for="fin">heure du début <i>&nbsp; (1 h de réservation)</i></label>
                             <select class="col-8" name="debutH">
                                 <!-- heure du début -->
