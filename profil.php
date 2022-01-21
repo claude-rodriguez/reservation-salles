@@ -71,7 +71,7 @@ if (isset($_POST['newlogin']) && $_POST['newlogin'] == $infoutilisateur['login']
     </header>
 
     <main id="main_ins">
-        <div id="background1"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
+        <div id="background1"> <img src="images/salle-removebg-preview.png" alt=""></div>
         <form id="form_ins" action="" method="post">
             <div style="color: red;">
                 <?php
@@ -108,7 +108,7 @@ if (isset($_POST['newlogin']) && $_POST['newlogin'] == $infoutilisateur['login']
 
             </table>
         </form>
-        <div id="background2"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
+        <div id="background2"> <img src="images/salle-removebg-preview.png" alt=""></div>
 
     </main>
 

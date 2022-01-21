@@ -61,7 +61,7 @@ if (isset($_POST['envoyer'])) {
 
     <main id="main_ins">
 
-        <div id="background2"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
+        <div id="background2"> <img src="images/salle-removebg-preview.png" alt=""></div>
         <form id="form_ins" action="" method="post">
             <div style="color: red;">
                 <?php
@@ -100,7 +100,7 @@ if (isset($_POST['envoyer'])) {
 
 
         <div id="background2">
-            <img src="../reservation-salles/images/salle-removebg-preview.png" alt="">
+            <img src="images/salle-removebg-preview.png" alt="">
         </div>
     </main>
 
