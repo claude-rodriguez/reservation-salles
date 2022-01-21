@@ -117,33 +117,43 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
         }
 
         //ici pas bon refaire
-        if (!isset($_GET["jour"])) {
+        // if (!isset($_GET["jour"])) {
 
-            if (date("Y/m/d") > $dateOffGet) {
+        //     if (date("Y/m/d") > $dateOffGet) {
         
-                if ($_POST["debut"] == "Lundi") {
-                    $dateOffGet = date('Y/m/d', strtotime("+7 day this week"));
-                } else if ($_POST["debut"] == "Mardi") {
-                    $dateOffGet = date('Y/m/d', strtotime("+8 day this week"));
-                } else if ($_POST["debut"] == "Mercredi") {
-                    $dateOffGet = date('Y/m/d', strtotime("+9 day this week"));
-                } else if ($_POST["debut"] == "Jeudi") {
-                    $dateOffGet = date('Y/m/d', strtotime("+10 day this week"));
-                } else if ($_POST["debut"] == "Vendredi") {
-                    $dateOffGet = date('Y/m/d', strtotime("11 day this week"));
-                }
-                $msgErr = "Réservé pour la semaine suivante";
+        //         if ($_POST["debut"] == "Lundi") {
+        //             $dateOffGet = date('Y/m/d', strtotime("+7 day this week"));
+        //         } else if ($_POST["debut"] == "Mardi") {
+        //             $dateOffGet = date('Y/m/d', strtotime("+8 day this week"));
+        //         } else if ($_POST["debut"] == "Mercredi") {
+        //             $dateOffGet = date('Y/m/d', strtotime("+9 day this week"));
+        //         } else if ($_POST["debut"] == "Jeudi") {
+        //             $dateOffGet = date('Y/m/d', strtotime("+10 day this week"));
+        //         } else if ($_POST["debut"] == "Vendredi") {
+        //             $dateOffGet = date('Y/m/d', strtotime("11 day this week"));
+        //         }
 
-                $titre = strip_tags(htmlspecialchars($_POST["titre"]));
-                $description = strip_tags(htmlspecialchars($_POST["description"]));
-                $debut = strip_tags(htmlspecialchars($dateOffGet . " " . $_POST["debutH"]));
-                $fin = strip_tags(htmlspecialchars($dateOffGet . " " . Intval($_POST["debutH"] + 1)));
+        //         $titre = strip_tags(htmlspecialchars($_POST["titre"]));
+        //         $description = strip_tags(htmlspecialchars($_POST["description"]));
+        //         $debut = strip_tags(htmlspecialchars($dateOffGet . " " . $_POST["debutH"]));
+        //         $fin = strip_tags(htmlspecialchars($dateOffGet . " " . Intval($_POST["debutH"] + 1)));
 
-                $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
-                $prepsql = $bdd->prepare($sql);
-                $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
-                $msgErr = "Vous avez réservé(e) pour la semaine prochaine";
+        //         $sql = "INSERT INTO `reservations`(`titre`, `description`, `debut`, `fin`, `id_utilisateur`) VALUES (?,?,?,?,?)";
+        //         $prepsql = $bdd->prepare($sql);
+        //         $insertReserv = $prepsql->execute(array($titre, $description, $debut, $fin, $id_utilisateur));
+        //         $msgErr = "Vous avez réservé(e) pour la semaine prochaine";
 
+        //     }
+        // }
+
+
+        if (!isset($_GET["jour"])) {
+            if (date("Y/m/d") > $dateOffGet) {
+                $msgErr = "Le jour est déjà passé";
+            }
+        } else {
+            if (date("Y/m/d") > $date) {
+                $msgErr = "Le jour est déjà passé";
             }
         }
         
