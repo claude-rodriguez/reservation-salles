@@ -121,7 +121,17 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
 
             if (date("Y/m/d") > $dateOffGet) {
         
-                $dateOffGet = date('Y/m/d', strtotime("+7 day this week"));
+                if ($_POST["debut"] == "Lundi") {
+                    $dateOffGet = date('Y/m/d', strtotime("+7 day this week"));
+                } else if ($_POST["debut"] == "Mardi") {
+                    $dateOffGet = date('Y/m/d', strtotime("+8 day this week"));
+                } else if ($_POST["debut"] == "Mercredi") {
+                    $dateOffGet = date('Y/m/d', strtotime("+9 day this week"));
+                } else if ($_POST["debut"] == "Jeudi") {
+                    $dateOffGet = date('Y/m/d', strtotime("+10 day this week"));
+                } else if ($_POST["debut"] == "Vendredi") {
+                    $dateOffGet = date('Y/m/d', strtotime("11 day this week"));
+                }
                 $msgErr = "Réservé pour la semaine suivante";
 
                 $titre = strip_tags(htmlspecialchars($_POST["titre"]));
