@@ -115,17 +115,20 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
             $msgErr = "Votre horaire est déjà réservé";
         }
 
+        //ici pas bon refaire
         if (!isset($_GET["jour"])) {
 
             if (date("Y/m/d") > $dateOffGet) {
-
-                $msgErr = "Le jour est déjà passé";
+        
+                $dateOffGet = date('Y/m/d', strtotime("+7 this week"));
+                $msg = "Réservé pour la semaine suivante";
             }
         } else {
-
+        
             if (date("Y/m/d") > $date) {
-
-                $msgErr = "Le jour est déjà passé";
+        
+                $date = date('Y/m/d', strtotime("+7 day this week"));
+                $msg = "Réservé pour la semaine suivante";
             }
         }
 
@@ -193,6 +196,8 @@ if (!isset($_SESSION['login']) && empty($_SESSION["login"])) { // si l'utilisate
                     <?php
                     if (isset($msgErr)) {
                         echo $msgErr;
+                    } else if (isset($msg)){
+                        echo $msg;
                     }
                     ?>
                 </div>
