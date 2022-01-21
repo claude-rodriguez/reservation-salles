@@ -26,7 +26,7 @@ require_once("config/bdd.php");
 
     <main id="crindexmain">
 
-        <div id="background1"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
+        <div id="background1"> <img src="images/salle-removebg-preview.png" alt=""></div>
         <section id="section_index">
             <article class="art_index">
                 <h2 id="h2_index">Réservez votre salle</h2>
@@ -37,7 +37,7 @@ require_once("config/bdd.php");
                 <h3>Salle Pandora (25 personnes)</h3>
                 <div id="div_index2">
                     <a href="planning.php">
-                        <img class="img_index" src="../reservation-salles/images/salle25.jfif" alt="">
+                        <img class="img_index" src="images/salle25.jfif" alt="">
                     </a>
                 </div>
                 <p class="alpad">Cliquez sûre la photo pour voir les disponibilité<b>(1 heure de réservation max)<b></p>
@@ -45,8 +45,10 @@ require_once("config/bdd.php");
             </article>
         </section>
         </div>
-        <div id="background2"> <img src="../reservation-salles/images/salle-removebg-preview.png" alt=""></div>
-    </main >
+        <div id="background2">
+            <img src="images/salle-removebg-preview.png" alt="">
+        </div>
+    </main>
 
 
     <footer class="">
