@@ -20,10 +20,10 @@ if (isset($_POST['envoyer'])) {
                 $_SESSION['login'] = $result[0]['login'];
                 header("Location: planning.php");   //Redirige sur la page profil
             } else {
-                $erreur = "Mauvais login !";
+                $erreur = "Mauvais mot de passe !";
             }
         } else {
-            $erreur = "Mauvais mot de passe !";
+            $erreur = "Mauvais login !";
         }
     }
 }

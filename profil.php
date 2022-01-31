@@ -2,6 +2,8 @@
 include_once("config/bdd.php");
 // var_dump ($_SESSION);
 
+
+
 if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
     $requtilisateur = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?');
     $requtilisateur->execute(array($_SESSION['id']));
@@ -23,7 +25,9 @@ if (isset($_POST['newlogin']) && !empty($_POST['newlogin']) && $_POST['newlogin'
         $insertlogin = $bdd->prepare("UPDATE utilisateurs SET login = ? WHERE id = ?");
         $insertlogin->execute(array($newlogin, $_SESSION['id']));
         $_SESSION['login'] = $newlogin;
-        header('Location: profil.php');
+		$bonMsg = "Modification envoyée !";
+
+
     }
 }
 if (isset($_POST['newpassword']) && !empty($_POST['newpassword']) && isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) { //Confirmation des 2 mdp
@@ -34,12 +38,14 @@ if (isset($_POST['newpassword']) && !empty($_POST['newpassword']) && isset($_POS
         $hachage = password_hash($mdp1, PASSWORD_BCRYPT);
         $insertmdp = $bdd->prepare("UPDATE utilisateurs SET password = ? WHERE id = ?");
         $insertmdp->execute(array($hachage, $_SESSION['id']));
-        header('Location: profil.php');
+		$bonMsg = "Modification envoyée !";
+
     } else {
         $msg = "Vos mots de passes ne correspondent pas !";
     }
 }
-if (isset($_POST['newlogin']) && $_POST['newlogin'] == $infoutilisateur['login']) {
+
+if (isset($_POST['newlogin']) && $_POST['newlogin'] == $infoutilisateur['login'] && empty($msg) && empty($bonMsg)) {
     header('Location: profil.php');
 }
 
@@ -75,9 +81,13 @@ if (isset($_POST['newlogin']) && $_POST['newlogin'] == $infoutilisateur['login']
         <form id="form_ins" action="" method="post">
             <div style="color: red;">
                 <?php
-                if (isset($erreur)) {
-                    echo $erreur;
+
+                if (isset($msg)) {
+                    echo $msg;
                 }
+				else {
+					echo $bonMsg;
+				}
                 ?>
             </div>
             <table id="crtable_ins">
@@ -89,7 +99,7 @@ if (isset($_POST['newlogin']) && $_POST['newlogin'] == $infoutilisateur['login']
                 </tr>
                 <tr class="crtr_ins">
                     <td class="crtd_ins"><label class="label_input_ins" for="newlogin">New Login</label></td><br>
-                    <td class="crtd_ins"><input class="label_input_ins" type="text" name="newlogin" id="newlogin" placeholder="<?php echo $_SESSION["login"] ?>" required></td>
+                    <td class="crtd_ins"><input class="label_input_ins" type="text" name="newlogin" id="newlogin" value="<?php echo $_SESSION["login"] ?>" required></td>
                 </tr>
 
                 <tr class="crtr_ins">
